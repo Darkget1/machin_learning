@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% block content %}
+<!--    {% load static %}-->
+
+    <div class="theme-red">
+
+    <!-- Back to top button -->
+    <div class="btn-back_to_top">
+        <span class="ti-arrow-up"></span>
+    </div>
+    <!-- 게시판 이용 수치 -->
+    <div class="vg-page page-funfact" style="background-image: url({% static 'images/climbing.jpg' %});">
+        <div class="container">
+            <div class="row section-counter justify-content-between">
+                <div class="col-md-6 col-lg-3 py-4 wow fadeIn">
+                    <h1 class="number" data-number="">{{ articleComment_list.count }}</h1>
+                    <span>함께 운동한 회원수</span>
+                </div>
+                <div class="col-md-6 col-lg-3 py-4 wow fadeIn">
+                    <h1 class="number" data-number="{{ article.count }}">{{ article.count }}</h1>
+                    <span>작성한 모집글</span>
+                </div>
+                <div class="col-md-6 col-lg-3 py-4 wow fadeIn">
+                    <h1 class="number" data-number="{{ articlecomment.count }}">{{ articlecomment.count }}</h1>
+                    <span>신청한 하이파이브</span>
+                </div>
+<!--                <div class="col-md-6 col-lg-3 py-4 wow fadeIn">-->
+<!--                    <h1 class="number" data-number="143">143</h1>-->
+<!--                    <span>추천수</span>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+    <!-- 프로필 정보 -->
+    <div class="vg-page page-about" id="about">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4 py-3">
+                    <div class="img-place wow fadeInUp">
+                        <img src="{{ profile.images.url }}" alt="" style="height:100%;width:100%">
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-1 wow fadeInRight">
+                    <h1 class="fw-light">{{ profile.author.first_name }}{{ profile.author.last_name }}</h1>
+                    <h5 class="fg-theme mb-3">{{ profile.author.nickname }}</h5>
+                    <ul class="theme-list">
+                        <li><b>아이디:</b> {{ profile.author }}</li>
+                        <li><b>이메일:</b> {{ profile.author.email }}</li>
+                        <li><b>생일:</b> {{ profile.birthdate }}</li>
+                        <li><b>성별:</b> {{ profile.author.gender }}</li>
+                    </ul>
+                    <p class="text-muted">{{ profile.introduce }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="vg-page page-service">
+            <div class="container">
+                <div class="text-center wow fadeInUp">
+                    <!-- <div class="badge badge-subhead">Service</div> -->
+                </div>
+                <h1 class="fw-normal text-center wow fadeInUp">운동 프로필</h1>
+                <div class="row mt-5">
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="card card-service wow fadeInUp" style="height:80%;width:100%">
+
+                            <div CLASS="text-center">
+                                {% include 'mbti_match.html' %}
+                            </div>
+                            <div class="caption">
+                                <h4 class="fg-theme">{{ profile.mbti }}</h4>
+                                <p>저의 MBTI는 <strong>'{{ profile.mbti }}'</strong> 입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="card card-service wow fadeInUp" style="height:80%;width:100%">
+                            <div class="icon">
+                                {% include 'workout1_mach.html' %}
+                            </div>
+
+                            <div class="caption">
+                                <h4 class="fg-theme">{{ profile.workout }}</h4>
+                                <p>제가 즐겨하는 스포츠는 <strong>'{{ profile.workout }}'</strong> 입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="card card-service wow fadeInUp" style="height:80%;width:100%">
+                            <div class="icon">
+                                {% include 'workout2_mach.html' %}
+                            </div>
+                            <div class="caption">
+                                <h4 class="fg-theme">{{ profile.Sport_type }}</h4>
+                                <p>저의 관심 스포츠는 <strong>'{{ profile.Sport_type }}'</strong> 입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container py-5">
+            <h1 class="text-center fw-normal wow fadeIn">운동 목표 현황</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="px-lg-3">
+                        <h4 class="wow fadeInUp">즐겨하는 운동 목표</h4>
+                        <div class="progress-wrapper wow fadeInUp">
+                            <span class="caption">{{ profile.career }}</span>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width:{{ profile.car_num }}%;"
+                                     aria-valuenow="75"
+                                     aria-valuemin="0" aria-valuemax="100">{{ profile.car_num }}%
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <h4 class="wow fadeInUp">관심 운동 목표</h4>
+                        <div class="progress-wrapper wow fadeInUp">
+                            <span class="caption">{{ profile.career2 }}</span>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width:{{ profile.car_num2 }}%;"
+                                     aria-valuenow="75"
+                                     aria-valuemin="0" aria-valuemax="100">{{ profile.car_num2 }}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if request.user == profile.author %} }
+        <div class="text-center">
+            <a class="btn custom-btn bg-color" href="{% url 'common:profile_update' profile.id%}">내 프로필 수정</a>
+        </div>
+
+
+    <div class="section-title container py-5 mt-5">
+            <h2><span>하이파이브 LIST!</span></h2>
+        </div>
+
+
+
+    <section class="mt-0">
+        <div class="container my-3 py-3">
+            <div class="row d-flex justify-content-center">
+                <div class="col-10">
+                    <div class="card" style="border-radius: 15px;">
+                        {% if articleComment_list.count > 0 %}
+                            {% for articleComment in articleComment_list %}
+                                <div class="card-body p-4">
+                                    <div class="d-flex flex-start">
+                                    <a href="{% url 'common:profilepage' articleComment.profile_id %}">
+
+
+                                        <img class="author-thumb"
+                                             src="{{ articleComment.profile.images.url }}"
+                                             alt="profilepage">
+                                       </a>
+
+                                        <div>
+                                            <h6 class="fw-bold mb-1">{{ articleComment.author }}</h6>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <p class="mb-0">
+                                                    {% if articleComment.modify_date %}
+                                                        {{ articleComment.modify_date }}
+                                                    {% else %}
+                                                        {{ articleComment.create_date }}
+                                                    {% endif %}
+                                                    {% if request.user == articleComment.author %}
+                                                        <a onclick="location.href='{% url 'pybo:articleComment_modify_article' articleComment.id %}'"
+                                                           class="btn btn-sm btn-outline-secondary">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                 height="16" fill="currentColor" class="bi bi-pencil"
+                                                                 viewBox="0 0 16 16">
+                                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                                            </svg>
+                                                        </a>
+                                                        <a href="#"
+                                                           data-uri="{% url 'pybo:articleComment_delete_article' articleComment.id %}"
+                                                           class="delete btn btn-sm btn-outline-secondary">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                 height="16" fill="currentColor" class="bi bi-trash"
+                                                                 viewBox="0 0 16 16">
+                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                                            </svg>
+                                                        </a>
+                                                    {% endif %}
+                                            </div>
+
+                                            <p class="mb-0">
+
+                                                {{ articleComment.content }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% if request.user == profile.author %}
+                                        <div class="text-center">
+
+                                            {% if request.user in articleComment.highfive.all %}
+                                                <a href="#"
+                                                   data-uri="{% url 'pybo:profile_high_five' articleComment.id %}"
+                                                   class="highfive_canceled btn btn-custom bg-color my-1">
+                                                    <img src="{% static 'icon/high_five.png' %}" style="height: 30px;filter: invert();"> 하이파이브
+                                                    취소</a>
+                                            {% else %}
+                                                <a href="#"
+                                                   data-uri="{% url 'pybo:profile_high_five' articleComment.id %}"
+                                                   class="highfive btn btn-custom bg-color my-1">
+                                                    <img src="{% static 'icon/high_five.png' %}" style="height: 30px;filter: invert();"> 하이파이브</a>
+                                            {% endif %}
+
+
+
+
+                                        </div>
+                                        </div>
+                                    {% endif %}
+                                <hr class="my-0"/>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %} }
+
+
+
+
+
+
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var counterInit = function () {
+                if ($('.section-counter').length > 0) {
+                    $('.section-counter').waypoint(function (direction) {
+
+                        if (direction === 'down' && !$(this.element).hasClass('ftco-animated')) {
+
+                            var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+                            $('.number').each(function () {
+                                var $this = $(this),
+                                    num = $this.data('number');
+                                $this.animateNumber(
+                                    {
+                                        number: num,
+                                        numberStep: comma_separator_number_step
+                                    }, 5000
+                                );
+                            });
+
+                        }
+
+                    }, {offset: '95%'});
+                }
+
+            }
+            counterInit();
+        });
+        $(".highfive_canceled").on('click', function () {
+                if (confirm("정말 하이파이프 취소 하시겠습니까?")) {
+                    location.href = $(this).data('uri');
+                }
+            });
+            $(".highfive").on('click', function () {
+                if (confirm("정말 하이파이프 수락 하시겠습니까?")) {
+                    location.href = $(this).data('uri');
+                }
+            });
+
+    </script>
+
+{% endblock %}

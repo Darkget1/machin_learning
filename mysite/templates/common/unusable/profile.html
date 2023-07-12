@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-3">
+    <div class="row my-3">
+        <div class="col-4">
+            <h4>프로필 편집</h4>
+        </div>
+        <div class="col-8 text-right">
+            <span>또는 <a href="{% url 'common:login' %}">로그인</a></span>
+        </div>
+    </div>
+    <form method="post" class="post-form">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <!-- 닉네임 -->
+        <div class="form-group">
+            <label for="nickname">닉네임</label>
+            <input type="text" class="form-control" name="nickname" id="nickname"
+                   value="{{ form.nickname.value|default_if_none:'' }}">
+        </div>
+
+        <!-- 생년월일(나이) -->
+        <div class="form-group">
+            <label for="birth">생년월일</label>
+            <input type="date" class="form-control" name="birth" id="birth">
+        </div>
+        <br/>
+
+        <!-- 프로필 사진 -->
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="inputFile">
+            <label class="input-group-text" for="inputFile">Upload</label>
+        </div>
+
+        <!-- MBTI 설명 In/Out -->
+        <!-- <div class="input-group mb-3">
+            <label class="input-group-text" for="mbti">MBTI 선택</label>
+            <select class="form-select" id="mbti">
+                <option selected="">=== 선택 ====</option>
+                <option value="ISTJ">ISTJ - 청렴결백한 논리주의자</option>
+                <option value="ISFJ">ISFJ - 용감한 수호자</option>
+                <option value="INFJ">INFJ - 선의의 옹호자</option>
+                <option value="INTJ">INTJ - 용의주도한 전략가</option>
+                <option value="ISTP">ISTP - 만능 재주꾼</option>
+                <option value="ISFP">ISFP - 호기심 많은 예술가</option>
+                <option value="INFP">INFP - 열정적인 중재자</option>
+                <option value="INTP">INTP - 논리적인 사색가</option>
+                <option value="ESTJ">ESTJ - 엄격한 관리자</option>
+                <option value="ESFJ">ESFJ - 사교적인 외교관</option>
+                <option value="ENFJ">ENFJ - 정의로운 사회운동가</option>
+                <option value="ENTJ">ENTJ - 대담한 통솔자</option>
+                <option value="ESTP">ESTP - 모험을 즐기는 사업가</option>
+                <option value="ESFP">ESFP - 자유로운 영혼의 연예인</option>
+                <option value="ENFP">ENFP - 재기 발랄한 활동가</option>
+                <option value="ENTP">ENTP - 논쟁을 즐기는 변론가</option>
+            </select>
+        </div>
+        -->
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="mbti">MBTI 선택</label>
+            <select class="form-select" id="mbti">
+                <option selected="">== 선택 ==</option>
+                <option value="ISTJ">ISTJ</option>
+                <option value="ISFJ">ISFJ</option>
+                <option value="INFJ">INFJ</option>
+                <option value="INTJ">INTJ</option>
+                <option value="ISTP">ISTP</option>
+                <option value="ISFP">ISFP</option>
+                <option value="INFP">INFP</option>
+                <option value="INTP">INTP</option>
+                <option value="ESTJ">ESTJ</option>
+                <option value="ESFJ">ESFJ</option>
+                <option value="ENFJ">ENFJ</option>
+                <option value="ENTJ">ENTJ</option>
+                <option value="ESTP">ESTP</option>
+                <option value="ESFP">ESFP</option>
+                <option value="ENFP">ENFP</option>
+                <option value="ENTP">ENTP</option>
+            </select>
+        </div>
+
+        <!-- 운동은 이미지 클릭하기 -->
+        <!-- 해본 운동 / 경력 -->
+        <!-- 관심 운동 -->
+        <div class="row-2">
+            <div class="form-group">
+                <label for="workout">운동</label>
+                <div class="col-4">
+                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="workout1" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="workout1">
+
+                        <input type="checkbox" class="btn-check" id="workout2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="workout2">운동 2</label>
+
+                        <input type="checkbox" class="btn-check" id="workout3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="workout3">운동 3</label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        <input type="checkbox" class="btn-check" id="workout4" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="workout4">운동 4</label>
+
+                        <input type="checkbox" class="btn-check" id="workout5" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="workout5">운동 5</label>
+
+                        <input type="checkbox" class="btn-check" id="workout6" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="workout6">운동 6</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 연락 받을 오픈 채팅 url 링크 입력 -->
+        <div class="form-group">
+            <label for="link">오픈채팅 링크</label>
+            <input type="url" class="form-control" name="link" id="link">
+        </div>
+
+        <!-- 자기소개 (취미, 주량, ... 등 )-->
+        <div class="form-group">
+            <label for="profile" class="form-label">자기소개</label>
+            <textarea class="form-control" id="profile" rows="3"
+                      placeholder="취미, 주량 등 자유롭게 자기소개를 적어주세요!"></textarea>
+        </div>
+        <!-- 취미 -->
+        <!-- 주량 -->
+        <button type="submit" class="btn btn-primary">편집하기</button>
+    </form>
+</div>
+{% endblock %}

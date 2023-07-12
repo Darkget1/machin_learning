@@ -1,0 +1,55 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+
+
+    <title>main</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- responsive-->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- awesome fontfamily -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+{#로딩#}
+{#<div class="loader_bg">#}
+{#    <div class="loader"><img src="{% static 'images/loading.gif' %}" alt=""/></div>#}
+{#</div>#}
+<body class="main-layout inner_page">
+<!-- 네비게이션 바 include-->
+{% include 'navbar.html' %}
+
+<!-- 기본 템플릿 안에 삽입될 내용 Start-->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 END-->
+<!--jQuery JS -->
+
+<!-- Bootstrap JS -->
+
+{% include 'footer.html' %}
+<!--자바 스크립트 Start -->
+{% block script %}
+
+       <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
+
+{% endblock %}
+<!--자바스크립트 END-->
+
+</body>
+</html>

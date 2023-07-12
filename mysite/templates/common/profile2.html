@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<!--
+{#    <h5>{{ profile.count }}</h5>#}
+{#<div>#}
+{#    <ul>#}
+{# {% for profile in %} #}
+{#    </ul>    #}
+{#</div>#}
+{#<br>#} -->
+
+<div class="container">
+
+
+    <div class="row my-3">
+        <div class="col-5">
+            <h4>프로필 입력</h4>
+        </div>
+    </div>
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group {% if field.errors|length > 0 %}has-error{%endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input name="{{ field.html_name }}" id="{{ field.id_for_lable }}" class="form-control" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:'' }}">
+                    {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                <strong>{{ field.label }}</strong>
+                {{ error }}
+            </div>
+                        <label class="alert alert-danger" for="{{ field.id_for_label }}">{{ error }}</label>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        <button type="submit" class="btn custom-btn aos-init aos-animate bg-color rounded">저장</button>
+        {#
+        <button type="reset" class="btn custom-btn aos-init aos-animate bg-color rounded">초기화</button>
+        #}
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                document.getElementById('preview').src = "";
+            }
+        }
+
+</script>
+{% endblock %}

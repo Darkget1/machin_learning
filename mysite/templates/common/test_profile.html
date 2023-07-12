@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<!--
+{#    <h5>{{ profile.count }}</h5>#}
+{#<div>#}
+{#    <ul>#}
+{# {% for profile in %} #}
+{#    </ul>    #}
+{#</div>#}
+{#<br>#} -->
+
+<div class="container">
+
+
+    <div class="row my-3">
+        <div class="col-5">
+            <h4>프로필 입력</h4>
+        </div>
+    </div>
+    <form method="POST" class="post-form"  enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <!-- user ID -->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)"  for="username">사용자 ID</label></strong>
+            <input type="text" class="form-control" name="username" id="username"
+                   value="{{ user.username}}" disabled>
+        </div>
+        <!-- 닉네임 -->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)"  for="nickname">닉네임</label></strong>
+            <input type="text" class="form-control" name="nickname" id="nickname"
+                   value="{{ user.nickname }}" disabled>
+        </div><hr>
+
+        <!-- 프로필 사진 삽입 -->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)"  for="images" id="images">프로필 사진</label></strong><br/>
+            {% if profile.images.url %}
+                <img class="col-3 card-img-bottom img-responsive" src="{{ profile.images.url }}" id="preview"/>
+            {% else %}
+                <img class="col-3 card-img-bottom img-responsive" src="{% static 'images/default.png' %}" id="preview"/>
+            {% endif %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger">
+                <strong>{{ message }}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <input class="form-control" type="file" name="images" accept="image/*"
+                   value="" onchange="readURL(this);">
+        </div>
+        <hr>
+
+
+        <!-- 생년월일(나이) -->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)"  for="birthdate">생년월일</label></strong>
+            <input type="date" class="form-control text-center" name="birthdate" id="birthdate"
+                   value="{{ form.birthdate.value|date:'Y-m-d' }}">
+        </div><hr>
+
+        <!-- MBTI 선택 -->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)"  for="mbti">MBTI 선택</label></strong><br>
+            <select class="form-select form-control" name="mbti" id="mbti">
+                <option selected="" class="text-center" value="none">===== MBTI 선택 =====</option>
+                <option value="ISTJ" {% if form.mbti.value == 'ISTJ'%}selected{% endif %}>ISTJ - 청렴결백한 논리주의자</option>
+                <option value="ISFJ" {% if form.mbti.value == 'ISFJ'%}selected{% endif %}>ISFJ - 용감한 수호자</option>
+                <option value="INFJ" {% if form.mbti.value == 'INFJ'%}selected{% endif %}>INFJ - 선의의 옹호자</option>
+                <option value="INTJ" {% if form.mbti.value == 'INTJ'%}selected{% endif %}>INTJ - 용의주도한 전략가</option>
+                <option value="ISTP" {% if form.mbti.value == 'ISTP'%}selected{% endif %}>ISTP - 만능 재주꾼</option>
+                <option value="ISFP" {% if form.mbti.value == 'ISFP'%}selected{% endif %}>ISFP - 호기심 많은 예술가</option>
+                <option value="INFP" {% if form.mbti.value == 'INFP'%}selected{% endif %}>INFP - 열정적인 중재자</option>
+                <option value="INTP" {% if form.mbti.value == 'INTP'%}selected{% endif %}>INTP - 논리적인 사색가</option>
+                <option value="ESTJ" {% if form.mbti.value == 'ESTJ'%}selected{% endif %}>ESTJ - 엄격한 관리자</option>
+                <option value="ESFJ" {% if form.mbti.value == 'ESFJ'%}selected{% endif %}>ESFJ - 사교적인 외교관</option>
+                <option value="ENFJ" {% if form.mbti.value == 'ENFJ'%}selected{% endif %}>ENFJ - 정의로운 사회운동가</option>
+                <option value="ENTJ" {% if form.mbti.value == 'ENTJ'%}selected{% endif %}>ENTJ - 대담한 통솔자</option>
+                <option value="ESTP" {% if form.mbti.value == 'ESTP'%}selected{% endif %}>ESTP - 모험을 즐기는 사업가</option>
+                <option value="ESFP" {% if form.mbti.value == 'ESFP'%}selected{% endif %}>ESFP - 자유로운 영혼의 연예인</option>
+                <option value="ENFP" {% if form.mbti.value == 'ENFP'%}selected{% endif %}>ENFP - 재기 발랄한 활동가</option>
+                <option value="ENTP" {% if form.mbti.value == 'ENTP'%}selected{% endif %}>ENTP - 논쟁을 즐기는 변론가</option>
+            </select>
+        </div><hr>
+
+        <!-- 즐겨하는 운동 경력 및 달성도 -->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)"  for="mbti">즐겨하는 운동</label></strong><br>
+            <select class="form-select form-control" name="workout" id="workout">
+                <option selected="" class="text-center" value="none">===== 즐겨하는 운동을 선택하세요 =====</option>
+                <option value="댄스" {% if form.workout.value == '댄스'%}selected{% endif %}>댄스</option>
+                <option value="골프" {% if form.workout.value == '골프'%}selected{% endif %}>골프</option>
+                <option value="러닝" {% if form.workout.value == '러닝'%}selected{% endif %}>러닝</option>
+                <option value="걷기" {% if form.workout.value == '걷기'%}selected{% endif %}>걷기</option>
+                <option value="자전거" {% if form.workout.value == '자전거'%}selected{% endif %}>자전거</option>
+                <option value="헬스" {% if form.workout.value == '헬스'%}selected{% endif %}>헬스</option>
+                <option value="테니스" {% if form.workout.value == '테니스'%}selected{% endif %}>테니스</option>
+                <option value="패들" {% if form.workout.value == '패들'%}selected{% endif %}>패들</option>
+                <option value="하이킹" {% if form.workout.value == '하이킹'%}selected{% endif %}>하이킹</option>
+                <option value="클라이밍" {% if form.workout.value == '클라이밍'%}selected{% endif %}>클라이밍</option>
+                <option value="보트타기" {% if form.workout.value == '보트타기'%}selected{% endif %}>보트타기</option>
+                <option value="낚시" {% if form.workout.value == '낚시'%}selected{% endif %}>낚시</option>
+                <option value="스쿼시" {% if form.workout.value == '스쿼시'%}selected{% endif %}>스쿼시</option>
+                <option value="수영" {% if form.workout.value == '수영'%}selected{% endif %}>수영</option>
+                <option value="스케이팅" {% if form.workout.value == '스케이팅'%}selected{% endif %}>스케이팅</option>
+                <option value="인라인스케이팅" {% if form.workout.value == '인라인스케이팅'%}selected{% endif %}>인라인스케이팅</option>
+                <option value="브리지" {% if form.workout.value == '브리지'%}selected{% endif %}>브리지</option>
+                <option value="배드민턴" {% if form.workout.value == '배드민턴'%}selected{% endif %}>배드민턴</option>
+                <option value="스키" {% if form.workout.value == '스키'%}selected{% endif %}>스키</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)"  for="career">즐겨하는 운동 목표</label></strong>
+            <input type="text" class="form-control" name="career" id="career"
+                   placeholder="자신의 즐겨하는 운동 목표 1가지를 적어주세요. Ex)100대 명산, 마라톤 10개 완주"
+                   value="{{ form.career.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)" for="car_num">즐겨하는 운동 목표 달성도</label></strong>
+            <input type="number" class="form-control" name="car_num" id="car_num" min="0" max="100"
+                   placeholder="0 - 100 %"
+                   value="{{ form.car_num.value|default_if_none:'' }}">
+        </div><hr>
+        <!-- 관심 운동 경력 및 달성도 -->
+        <div class="form-group">
+            {# <label style="color:rgb(241,58,18)" for="Sport_type">관심 운동</label>#}
+            {# <input type="text" class="form-control" name="Sport_type" id="Sport_type:" #}
+                      {# value="{{ form.Sport_type.value|default_if_none:'' }}">#}
+            <strong><label style="color:rgb(241,58,18)"  for="mbti">관심 스포츠</label></strong><br>
+            <select class="form-select form-control" name="Sport_type" id="Sport_type">
+                <option selected="" class="text-center" value="none">===== 관심있는 스포츠를 선택하세요 =====</option>
+                <option value="댄스" {% if form.Sport_type.value == '댄스'%}selected{% endif %}>댄스</option>
+                <option value="골프" {% if form.Sport_type.value == '골프'%}selected{% endif %}>골프</option>
+                <option value="러닝" {% if form.Sport_type.value == '러닝'%}selected{% endif %}>러닝</option>
+                <option value="걷기" {% if form.Sport_type.value == '걷기'%}selected{% endif %}>걷기</option>
+                <option value="자전거" {% if form.Sport_type.value == '자전거'%}selected{% endif %}>자전거</option>
+                <option value="헬스" {% if form.Sport_type.value == '헬스'%}selected{% endif %}>헬스</option>
+                <option value="테니스" {% if form.Sport_type.value == '테니스'%}selected{% endif %}>테니스</option>
+                <option value="패들" {% if form.Sport_type.value == '패들'%}selected{% endif %}>패들</option>
+                <option value="하이킹" {% if form.Sport_type.value == '하이킹'%}selected{% endif %}>하이킹</option>
+                <option value="클라이밍" {% if form.Sport_type.value == '클라이밍'%}selected{% endif %}>클라이밍</option>
+                <option value="보트타기" {% if form.Sport_type.value == '보트타기'%}selected{% endif %}>보트타기</option>
+                <option value="낚시" {% if form.Sport_type.value == '낚시'%}selected{% endif %}>낚시</option>
+                <option value="스쿼시" {% if form.Sport_type.value == '스쿼시'%}selected{% endif %}>스쿼시</option>
+                <option value="수영" {% if form.Sport_type.value == '수영'%}selected{% endif %}>수영</option>
+                <option value="스케이팅" {% if form.Sport_type.value == '스케이팅'%}selected{% endif %}>스케이팅</option>
+                <option value="인라인스케이팅" {% if form.Sport_type.value == '인라인스케이팅'%}selected{% endif %}>인라인스케이팅</option>
+                <option value="브리지" {% if form.Sport_type.value == '브리지'%}selected{% endif %}>브리지</option>
+                <option value="배드민턴" {% if form.Sport_type.value == '배드민턴'%}selected{% endif %}>배드민턴</option>
+                <option value="스키" {% if form.Sport_type.value == '스키'%}selected{% endif %}>스키</option>
+            </select>
+{#            {% include 'workout2.html' %}#}
+        </div>
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)" for="career2">관심 운동 목표</label></strong>
+            <input type="text" class="form-control" name="career2" id="career2"
+                   placeholder="자신의 관심 운동 목표 1가지를 적어주세요. Ex)철인 3종 완주, 매일 10000보 걷기"
+                   value="{{ form.career2.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)" for="car_num2">관심 운동 목표 달성도</label></strong>
+            <input type="number" class="form-control" name="car_num2" id="car_num2" min="0" max="100"
+                   placeholder="0 - 100 %"
+                   value="{{ form.car_num2.value|default_if_none:'' }}">
+        </div><hr>
+        <!-- 자기소개 (취미, 주량, ... 등 )-->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)" for="introduce">자기소개</label></strong>
+            <input type="text" class="form-control" id="introduce" name="introduce"
+                   style="height:80px; width:100%;"
+                   placeholder="취미, 주량 등 자유롭게 자기소개를 적어주세요!"
+                   value="{{ form.introduce.value|default_if_none:'' }}">
+            </input>
+        </div><hr>
+
+        <!-- 연락 받을 오픈 채팅 url 링크 입력 -->
+        <div class="form-group">
+            <strong><label style="color:rgb(241,58,18)" for="url">오픈채팅 url</label></strong>
+            <input type="url" class="form-control" name="url" id="url"
+                   placeholder="카카오톡 오픈채팅 링크 입력"
+                   value="{{ form.url.value|default_if_none:'' }}">
+
+        </div>
+        <button type="submit" class="btn custom-btn aos-init aos-animate bg-color rounded">저장</button>
+{#        <button type="reset" class="btn custom-btn aos-init aos-animate bg-color rounded">초기화</button>#}
+    </form>
+</div>
+
+
+
+
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                document.getElementById('preview').src = "";
+            }
+        }
+    </script>
+{% endblock %}

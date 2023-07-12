@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <div class="container my-3">
+        <div class="row my-3">
+            <div class="col-4">
+                <h4>회원가입</h4>
+            </div>
+            <div class="col-8 text-right">
+                <span>또는 <a href="{% url 'common:login' %}">로그인</a> </span>
+
+            </div>
+        </div>
+        <form method="post" class="post-form">
+            {% csrf_token %}
+            {% include "form_errors.html" %}
+            <!-- 아이디 -->
+            <div class="form-group">
+                <label for="username">사용자 ID</label>
+                <input type="text" class="form-control" name="username" id="username"
+                       value="{{ form.username.value|default_if_none:'' }}">
+            </div>
+            <br/>
+
+            <!-- 이름 -->
+            <div class="row">
+                <div class="col-4">
+                    <!-- 성 입력 first_name -->
+                    <div class="form-group">
+                        <label for="first_name">성</label>
+                        <input type="text" class="form-control" name="first_name" id="first_name"
+                               value="{{ form.first_name.value|default_if_none:'' }}">
+                    </div>
+                </div>
+                <br/>
+                <!-- 이름 입력 last_name -->
+                <div class="col">
+                    <div class="form-group">
+                        <label for="last_name">이름</label>
+                        <input type="text" class="form-control" name="last_name" id="last_name"
+                               value="{{ form.last_name.value|default_if_none:'' }}">
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <!-- 비밀번호 입력 및 확인 -->
+            <div class="form-group">
+                <label for="password1">비밀번호</label>
+                <input type="password" class="form-control" name="password1" id="password1"
+                       value="{{ form.password1.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="password2">비밀번호 확인</label>
+                <input type="password" class="form-control" name="password2"
+                       id="password2" value="{{ form.password2.value|default_if_none:'' }}">
+            </div>
+            <br/>
+
+            <!-- 닉네임 -->
+            <div class="form-group">
+                <label for="nickname">닉네임</label>
+                <input type="text" class="form-control" name="nickname" id="nickname"
+                       value="{{ form.nickname.value|default_if_none:'' }}">
+            </div>
+
+
+            <!-- 이메일 -->
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="text" class="form-control" name="email" id="email"
+                       placeholder="user@pybo.com"
+                       value="{{ form.email.value|default_if_none:'' }}">
+            </div>
+            <br/>
+
+            <div class="form-group">
+                <label for="tel">전화번호</label>
+                <input type="tel" class="form-control" name="tel" id="tel"
+                       placeholder="010-1234-1234" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+                       value="{{ form.tel.value|default_if_none:'' }}">
+            </div>
+            <br/>
+
+            <button type="submit" class="btn custom-btn aos-init aos-animate bg-color rounded">가입하기</button>
+        </form>
+    </div>
+{% endblock %}
