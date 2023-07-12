@@ -16,7 +16,7 @@ def posting_create(request):
             posting.author = request.user
             posting.create_date = timezone.now()
             posting.save()
-            return redirect('posting:main')
+            return redirect('posting:index')
     else:
         form = PostingForm()
     context = {'form': form}
@@ -47,5 +47,5 @@ def posting_delete(request, posting_id):
         messages.error(request, '삭제권한이 없습니다')
         return redirect('posting:detail', posting_id=posting.id)
     posting.delete()
-    return redirect('posting:main')
+    return redirect('posting:index')
 

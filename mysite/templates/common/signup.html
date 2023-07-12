@@ -58,19 +58,13 @@
             </div>
             <br/>
 
-            <!-- 닉네임 -->
-            <div class="form-group">
-                <label for="nickname">닉네임</label>
-                <input type="text" class="form-control" name="nickname" id="nickname"
-                       value="{{ form.nickname.value|default_if_none:'' }}">
-            </div>
 
 
             <!-- 이메일 -->
             <div class="form-group">
                 <label for="email">이메일</label>
                 <input type="text" class="form-control" name="email" id="email"
-                       placeholder="user@pybo.com"
+                       placeholder=""
                        value="{{ form.email.value|default_if_none:'' }}">
             </div>
             <br/>
@@ -82,8 +76,7 @@
                        value="{{ form.tel.value|default_if_none:'' }}">
             </div>
             <br/>
-
-            <button type="submit" class="btn custom-btn aos-init aos-animate bg-color rounded">가입하기</button>
+            <button type="submit" class="read_more">가입하기</button>
         </form>
     </div>
 {% endblock %}

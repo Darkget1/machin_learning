@@ -20,7 +20,7 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             form.create_date = timezone.now()
             login(request, user)
-            return redirect('common:profile')
+            return redirect('index')
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})

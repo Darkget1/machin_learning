@@ -21,13 +21,13 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Home</a>
+                                    <a class="nav-link" href="{% url 'index' %}">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="about.html">About</a>
+                                    <a class="nav-link" href="about.html">Go Projects</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="we_do.html">What we do</a>
+                                    <a class="nav-link" href="{% url 'posting:index' %}">게시판</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="portfolio.html">Portfolio </a>
@@ -37,16 +37,32 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="collapse navbar-collapse text-right" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                {% if user.is_authenticated %}
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="{% url 'common:logout' %}">로그아웃</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="{% url 'common:login' %}">로그인</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'common:signup' %}">회원가입</a>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
                     </nav>
                 </div>
-                <div class="col-md-2 d_none">
-                    <ul class="email text_align_right">
-                        <li><a href="{% url 'common:login' %}"> Login </a></li>
-                        <!--검색기능-->
-{#                        <li><a href="Javascript:void(0)"> <i class="fa fa-search" style="cursor: pointer;"#}
-{#                                                             aria-hidden="true"> </i></a></li>#}
-                    </ul>
-                </div>
+
+
+                <!--검색기능-->
+                {#                        <li><a href="Javascript:void(0)"> <i class="fa fa-search" style="cursor: pointer;"#}
+                {#                                                             aria-hidden="true"> </i></a></li>#}
+
+
             </div>
         </div>
     </div>

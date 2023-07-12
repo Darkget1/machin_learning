@@ -8,7 +8,7 @@ class UserForm(UserCreationForm):
     tel = forms.CharField(label='연락처')
     first_name = forms.CharField(label='성')
     last_name = forms.CharField(label='이름')
-    gender = forms.CharField(label='성별')
+
 
 
 
