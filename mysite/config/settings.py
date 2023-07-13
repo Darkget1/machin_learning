@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'project.apps.ProjectConfig',
     'posting.apps.PostingConfig',
     'common.apps.CommonConfig',
     'index.apps.IndexConfig',

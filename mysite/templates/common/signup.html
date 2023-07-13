@@ -7,12 +7,12 @@
             <div class="col-4">
                 <h4>회원가입</h4>
             </div>
-            <div class="col-8 text-right">
-                <span>또는 <a href="{% url 'common:login' %}">로그인</a> </span>
-
-            </div>
+{#            <div class="col-8 text-right">#}
+{#                <span>또는 <a href="{% url 'common:login' %}">로그인</a> </span>#}
+{##}
+{#            </div>#}
         </div>
-        <form method="post" class="post-form">
+        <form method="post" class="main_form">
             {% csrf_token %}
             {% include "form_errors.html" %}
             <!-- 아이디 -->
@@ -76,7 +76,7 @@
                        value="{{ form.tel.value|default_if_none:'' }}">
             </div>
             <br/>
-            <button type="submit" class="read_more">가입하기</button>
+            <button type="submit" class="send_btn">가입하기</button>
         </form>
     </div>
 {% endblock %}
