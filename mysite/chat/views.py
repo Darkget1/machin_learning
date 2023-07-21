@@ -11,7 +11,6 @@ def index_view(request):
 
 def room_view(request, room_name):
     room_id = Room.objects.get(name=room_name)
-    print(room_id)
     message_list = Message.objects.filter(room_id=room_id)
     chat_room, created = Room.objects.get_or_create(name=room_name)
     return render(request, 'chat/room.html', {
