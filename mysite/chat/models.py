@@ -29,3 +29,6 @@ class Message(models.Model):
 
     def __str__(self):
         return f'{self.user.username}: {self.content} [{self.timestamp}]'
+
+class Test_content(models.Model):
+    content = models.CharField(max_length=500)

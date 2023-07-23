@@ -130,3 +130,6 @@ class ChatConsumer(WebsocketConsumer):
 
     def private_message_delivered(self, event):
         self.send(text_data=json.dumps(event))
+
+
+
