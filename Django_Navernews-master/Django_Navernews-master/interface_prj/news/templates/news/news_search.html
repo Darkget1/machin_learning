@@ -1,0 +1,59 @@
+<!-- base.html 페이지 상속-->
+
+{% extends "news/home.html" %}
+
+{% block content %}
+    {% load static %} 
+    {% load filters %}
+
+    <link rel = "stylesheet" type = "text/css" href = "{% block stylesheet %}{% static 'news/css/news.css' %}{% endblock %}" /> 
+    <div id="content">
+        <h2>
+            News Search Engine
+        </h2>
+        <form action="{% url 'news:news_search' %}" method="post">
+            {% csrf_token %}
+
+            <label for="news_topic">topic:
+            </label>
+            <select name="news_topic">
+                <option value="default" selected="selected">전체</option>
+                <option value="259"> 금융 </option>
+                <option value="258"> 증권 </option>
+                <option value="261"> 산업/재계 </option>
+                <option value="731"> 모바일 </option>
+                <option value="226"> 인터넷/SNS </option>
+                <option value="227"> 통신/뉴미디어 </option>
+                <option value="kbaseball"> 야구 </option>
+                <option value="kfootball"> 축구 </option>
+                <option value="wfootball"> 해외축구 </option>
+            </select>
+            <label for="news_title">Search title: </label>
+            <input
+                id="news_title"
+                type="text"
+                name="news_title"
+                value="{{ search_keyword}}">
+                <input type="submit" value="OK"></form>
+                <br/><br/> 
+        {% if search_list %}
+                {% for result in search_list.result_list %}
+                <h3>
+                    <li id= "font-bold">
+                    {{ result.topic|__topic }} 
+                   
+                    </li>
+                </h3>
+                <h4>
+                    <li>
+                        <a href="{{result.letter_link}}" target="_blank">{{ result.title }}</a>
+                    </li>
+                </h4>
+                <li>{{result.preview}}</li>
+                <li>{{result.writer}}</li>
+                <li>{{result.published_date}}</li>
+                <hr>
+            {% endfor %}
+        {% endif %}
+                </div>
+                {% endblock %}

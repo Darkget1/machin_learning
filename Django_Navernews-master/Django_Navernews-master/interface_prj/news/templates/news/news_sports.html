@@ -1,0 +1,47 @@
+{% extends "news/home.html"%}
+
+{% block content %}
+{% load static %}
+    {% load filters %}
+
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'news/css/news.css' %}{% endblock %}" />
+
+    <!-- title : data[0] link: data[1] date: data[2] descs: data[3] writer:
+    data[4]-->
+    <div class = "save">
+        <form action="" method="post">
+            {% csrf_token %}
+            <button type="submit" name="UD" value="new100" class="save btn btn-default">최신 데이터 100개 새로 가져오기
+                <span class="glyphicon glyphicon-check"></span>
+            </button>
+             <button type="submit" name="UD" value="update" class="save btn btn-warning">최신 데이터 20개 새로 가져오기
+                <span class="glyphicon glyphicon-check"></span>
+            </button>
+            <button type="submit" name="UD" value="delete"  class="save btn btn-danger">삭제하기
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </form>
+    </div>
+    <div>
+        <h2 id = "font-bold">
+         {{ key|__topic }}
+        </h2>
+        <br>
+        {% for data in message%}
+            <h4>
+                <li id ="font-bold">
+                    <a href="{{data.letter_link}}" target="_blank">{{ data.title }}</a>
+                </li>
+            </h4>
+            <li>{{data.preview}}</li>
+            <li> 신문사: {{data.writer}}</li>
+            <li> 게시날짜: {{data.published_date}}</li>
+
+            <hr>
+        {% endfor %}
+
+    </div>
+    <div id="wrap">
+    {% include 'news/news_pagination.html' with page=message %}
+    </div>
+{% endblock %}

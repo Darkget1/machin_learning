@@ -1,0 +1,39 @@
+{% extends "news/home.html"%}
+
+{% block content %}
+    {% load static %}
+    {% load filters %}
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'news/css/news.css' %}{% endblock %}" />
+        <h2>◀ 더보기 </h2>
+        <div id="left">
+            <h4 id="font-bold"> {{key.1.0|__topic}} </h4>
+            {% for data in message.m.0|__zip:"3" %}
+                 <a href="{{ data.0.letter_link}}" target="_blank">
+                    <p id="font-bold">{{ data.0.title}}</p>
+                </a>
+                {{data.0.preview}}
+                <hr>
+            {% endfor %}
+        </div>
+        <div id="middle">
+           <h4 id="font-bold"> {{key.1.1|__topic}} </h4>
+            {% for data in message.m.1|__zip:"3" %}
+                 <a href="{{ data.0.letter_link}}" target="_blank">
+                    <p id="font-bold">{{ data.0.title}}</p>
+                </a>
+                {{data.0.preview}}
+                <hr>
+            {% endfor %}
+        </div>
+        <div id="right">
+           <h4 id="font-bold"> {{key.1.2|__topic}} </h4>
+            {% for data in message.m.2|__zip:"3" %}
+                 <a href="{{ data.0.letter_link}}" target="_blank">
+                    <p id="font-bold">{{ data.0.title}}</p>
+                </a>
+                {{data.0.preview}}
+                <hr>
+            {% endfor %}
+
+        </div>
+    {% endblock %}

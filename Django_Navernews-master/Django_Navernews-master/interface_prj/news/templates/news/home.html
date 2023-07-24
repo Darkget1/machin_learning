@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<meta charset="UTF-8">
+    <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'news/css/news.css' %}">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" type="text/css">
+        <title>뉴스 몰아보기</title>
+    </head>
+   <body>
+    <div class="page-header">
+        <h1><a href="{% url 'news:news_list' %}">Daily News</a></h1>
+    </div>
+
+    <div class="left-side-bar">
+        <div class="status-ico">
+            <span>▶</span>
+            <span>▼</span>
+        </div>
+
+        <ul>
+            <li>
+                <a href="{% url 'news:news_category_list' sid1='101' %}"> 경제 </a>
+                <ul>
+                    <li><a href="{% url 'news:news_detail' sid1='101' sid2='259' %}"> 금융 </a></li>
+                    <li><a href="{% url 'news:news_detail' sid1='101' sid2='258' %}"> 증권 </a></li>
+                    <li><a href="{% url 'news:news_detail' sid1='101' sid2='261' %}"> 산업/재계 </a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'news:news_category_list' sid1='105' %}"> IT/과학 </a>
+                <ul>
+                    <li><a href="{% url 'news:news_detail' sid1='105' sid2='731' %}"> 모바일 </a></li>
+                    <li><a href="{% url 'news:news_detail' sid1='105' sid2='226' %}"> 인터넷/SNS </a></li>
+                    <li><a href="{% url 'news:news_detail' sid1='105' sid2='227' %}"> 통신/뉴미디어 </a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'news:news_category_sports' %}"> 스포츠 </a>
+                <ul>
+                    <li><a href="{% url 'news:news_sports' sports='kbaseball' %}"> 야구 </a></li>
+                    <li><a href="{% url 'news:news_sports' sports='kfootball' %}"> 축구 </a></li>
+                    <li><a href="{% url 'news:news_sports' sports='wfootball' %}"> 해외축구 </a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'news:news_search' %}"> 검색 </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+</body>
+
+</html>

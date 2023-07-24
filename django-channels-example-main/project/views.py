@@ -27,7 +27,7 @@ def room(request, room_name):
 def naver_data(request):
     result = []
     url = "https://kin.naver.com/qna/list.naver"
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(version='114.0.5735.90').install()))
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     driver.get(url)
     data_list = driver.find_elements(By.CLASS_NAME, 'title')
     for data in data_list:
