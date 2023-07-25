@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from project.models import operate_time, Crawling
+
+admin.site.register(operate_time)
+admin.site.register(Crawling)

@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
+from .models import operate_time
+from django.utils import timezone
+import time
 import json
 
 # Create your views here.
@@ -23,3 +26,24 @@ def room(request, room_name):
 def naver_data(request):
     return render(request,'project/room.html')
 
+
+def app_core(request):
+    operate_list = operate_time.objects.order_by('-id').all()
+    if (request.GET.get('operate')):
+        click_command = "operate"
+        click_time = timezone.now()
+        done_time = timezone.now()
+        time_gap = done_time-click_time
+        form_new = operate_time(click_time=click_time, done_time=done_time, time_gap=time_gap, click_command=click_command)
+        form_new.save()
+
+    if (request.GET.get('operate_delay')):
+        click_time = timezone.now()
+        time.sleep(100)
+        done_time = timezone.now()
+        time_gap = done_time-click_time
+        click_command = "operate"
+        form_new = operate_time(click_time=click_time, done_time=done_time, time_gap=time_gap, click_command=click_command)
+        form_new.save()
+
+    return render(request, 'project/django_celery_main.html', {'operate_list': operate_list})
