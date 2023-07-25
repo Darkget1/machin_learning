@@ -10,7 +10,7 @@
     <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
-    <a class="btn-custom" href="{% url 'project:naver' %}">네이버</a>
+    <button class="btn-custom", id="naver">네이버</button>
 </body>
 
 <script>
@@ -24,7 +24,7 @@
         var data = JSON.parse(e.data);
         {#data['message']의 값이 받아오는 데이터값#}
         var message = data['message_up'];
-        document.querySelector('#chat-log').value += (message +'안녕' +'\n');
+        document.querySelector('#chat-log').value += (message +'\n');
     };
 
     chatSocket.onclose = function(e) {
@@ -42,11 +42,19 @@
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
         chatSocket.send(JSON.stringify({
+            'command': 'message',
             'message_up': message
         }));
 
         messageInputDom.value = '';
     };
+    document.querySelector('#naver').onclick = function(e) {
+
+        chatSocket.send(JSON.stringify({
+            'command': 'naver',
+        }));
+    };
+
 </script>
 
 </html>
