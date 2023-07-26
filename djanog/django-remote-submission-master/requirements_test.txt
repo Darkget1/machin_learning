@@ -1,0 +1,30 @@
+-r requirements.txt
+
+# Check code coverage
+coverage>=4.2
+pytest-cov>=2.5.1
+
+# Mock functions for testing
+mock>=1.0.1
+
+# Check style of code
+flake8>=2.1.0
+
+# Check for docstring conformance
+flake8_docstrings
+
+# Run tests for different Python versions
+tox>=1.7.0
+
+# Utility for working with environment variables
+django-environ>=0.4.0
+
+# For a nicer testing setup
+pytest>=3.2.1
+
+# For testing Django with pytest
+pytest-django>=3.1.2
+
+
+# For mocking different functions
+pytest-mock>=1.6.2

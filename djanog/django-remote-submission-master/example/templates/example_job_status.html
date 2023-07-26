@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>List of Jobs</h1>
+  <button class="btn btn-warning" id="example-create-job">Create a Test Job</button>
+  <table class="table">
+    <thead>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Modified</th>
+      <th>See log...</th>
+    </thead>
+    <tbody id="example-job-status-rows"></tbody>
+  </table>
+</div>
+
+<script src="https://cdn.rawgit.com/joewalnes/reconnecting-websocket/fd7c819bb15eeee3452c17e317c0a3664c442965/reconnecting-websocket.min.js"></script>
+<script>
+
+/* Thanks https://docs.djangoproject.com/en/1.10/ref/csrf/ */
+// using jQuery
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = jQuery.trim(cookies[i]);
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+/* Thanks http://stackoverflow.com/a/38982661 */
+function post(url) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+  xhr.send('');
+}
+
+document.getElementById('example-create-job').addEventListener('click', () => {
+  post(window.location);
+}, true);
+
+socket = new ReconnectingWebSocket("ws://" + window.location.host + "/ws/job-user/");
+
+socket.onmessage = function(e) {
+  console.log("onmessage:", e);
+  var { job_id, title, status, modified } = JSON.parse(e.data),
+      tbody = $('#example-job-status-rows'),
+      trs = tbody.children(),
+      tr = $('<tr>').append(
+        $('<td>').text('' + job_id)
+      ).append(
+        $('<td>').text('' + title)
+      ).append(
+        $('<td>').append('<span class="label label-' + status + '">' + status + '</span>')
+      ).append(
+        $('<td>').text('' + new Date(modified).toLocaleString())
+      ).append(
+        $('<td>').append('<a href="' + "{% url 'logs' 999 %}".replace (999, job_id) +
+                   '" title="Click to see the log of this Job."><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> ' +
+                   title + '</a>')
+      );
+      found = false;
+
+  trs.each((i, el) => {
+    var id = +el.firstChild.textContent;
+
+    if (id === job_id) {
+      $(el).replaceWith(tr);
+      found = true;
+      return false;
+    }
+  });
+
+  if (!found) {
+    tr.appendTo(tbody);
+  }
+
+  trs = tbody.children();
+
+  // Sort by date
+  trs.sort((a, b) => {
+    return b.lastChild.previousSibling.textContent.localeCompare(a.lastChild.previousSibling.textContent);
+  });
+
+  trs.detach().appendTo(tbody);
+}
+
+socket.onopen = function(e) {
+  console.log("onopen:", e);
+}
+
+// Call onopen directly if socket is already open
+if (socket.readyState == WebSocket.OPEN) socket.onopen();
+</script>
+
+{% endblock content %}

@@ -1,0 +1,8 @@
+# fetch specific dependencies
+# --no-index
+# --find-links .
+#
+# install package
+# NOTE: -e . for editable mode
+# .
+-e .

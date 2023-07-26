@@ -13,6 +13,7 @@ def naver(sender, instance, created, **kwargs):
         message = Crawling.objects.get(id=instance.id).content
         print(message)
         async_to_sync(get_channel_layer().group_send)(
+            #그룹네임은 나중에 새로 설정할 필요성이 있다.
             'chat_1',{
                 'type': 'chat_message',
                 'message': message
