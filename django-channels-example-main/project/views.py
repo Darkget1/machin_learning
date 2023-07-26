@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from .models import operate_time
 from django.utils import timezone
+from .tasks import celery, celery_delay,naver
 import time
 import json
 
@@ -10,6 +11,13 @@ def index(request):
     return render(request,'project/index.html',{})
 
 def room(request, room_name):
+    if (request.GET.get('naver')):
+        naver()
+        print('naver 작업 시작 받음')
+
+
+
+
     # result = []
     # url = "https://kin.naver.com/qna/list.naver"
     # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(version='114.0.5735.90').install()))
@@ -23,8 +31,7 @@ def room(request, room_name):
         'room_name_json': mark_safe(json.dumps(room_name))
     })
 
-def naver_data(request):
-    return render(request,'project/room.html')
+
 
 
 def app_core(request):
@@ -45,5 +52,13 @@ def app_core(request):
         click_command = "operate"
         form_new = operate_time(click_time=click_time, done_time=done_time, time_gap=time_gap, click_command=click_command)
         form_new.save()
+    if (request.GET.get('celery')):
+        celery()
+        print('celery 작업 시작 받음')
+
+    if (request.GET.get('celery_delay')):
+        celery_delay()
+        print('celery_delay 작업 시작 받음')
 
     return render(request, 'project/django_celery_main.html', {'operate_list': operate_list})
+

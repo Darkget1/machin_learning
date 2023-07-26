@@ -17,3 +17,6 @@ class operate_time(models.Model):
 
     def __str__(self):
         return self.click_command
+
+class room(models.Model):
+    room_name = models.CharField(max_length=10)

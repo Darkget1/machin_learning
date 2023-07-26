@@ -7,3 +7,5 @@ add interpreter
 패키지 설치 진행 
 패키지 설치 : pip install -r requirements.txt 
 패키지 업로드 : pip freeze > requirements.txt
+# celery 작업정보 보기
+celery -A core worker -l info
