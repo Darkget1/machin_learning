@@ -9,3 +9,7 @@ add interpreter
 패키지 업로드 : pip freeze > requirements.txt
 # celery 작업정보 보기
 celery -A core worker -l info
+window에서 필요한 패키지 
+pip install gevent
+우분투에서는 필요없다.
+celery -A core worker -l INFO #실행키 

@@ -4,6 +4,7 @@ from django.db import models
 
 class Crawling(models.Model):
     content = models.TextField()
+    create_time = models.DateTimeField()
 
 
 

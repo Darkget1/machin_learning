@@ -11,10 +11,15 @@ def index(request):
     return render(request,'project/index.html',{})
 
 def room(request, room_name):
+    print(request)
     if (request.GET.get('naver')):
-        naver()
+        naver.delay()
         print('naver 작업 시작 받음')
 
+
+    return render(request, 'project/room.html', {
+        'room_name_json': mark_safe(json.dumps(room_name))
+    })
 
 
 
@@ -27,9 +32,9 @@ def room(request, room_name):
     #     result.append(data.find_element(By.TAG_NAME, 'a').text)
     # driver.close()
     # print(result)
-    return render(request, 'project/room.html', {
-        'room_name_json': mark_safe(json.dumps(room_name))
-    })
+    # return render(request, 'project/room.html', {
+    #     'room_name_json': mark_safe(json.dumps(room_name))
+    # })
 
 
 

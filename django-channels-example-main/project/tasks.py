@@ -1,6 +1,10 @@
 # Create your tasks here
 from __future__ import absolute_import, unicode_literals
+
+from asgiref.sync import async_to_sync
 from celery import shared_task
+from channels.layers import get_channel_layer
+
 from .models import operate_time,Crawling
 from django.utils import timezone
 import time
@@ -8,6 +12,12 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+
+#테스트
+from django.core.signals import request_finished
+
+
+
 
 
 @shared_task
@@ -33,12 +43,9 @@ def celery_delay():
     form_new.save()
 
 @shared_task
-
 def naver():
-
     print('크롤링 시작')
     url = "https://kin.naver.com/qna/list.naver"
-
     options = webdriver.ChromeOptions()
     # 창 숨기는 옵션 추가
     options.add_argument("headless")
@@ -47,7 +54,9 @@ def naver():
     data_list = driver.find_elements(By.CLASS_NAME, 'title')
     for data in data_list:
         content = data.find_element(By.TAG_NAME, 'a').text
-        print(content)
-        form_naver = Crawling(content=content)
+        form_naver = Crawling(content=content,create_time=timezone.now())
         form_naver.save()
         time.sleep(1)
+@shared_task
+def add(x,y):
+    return x+y
