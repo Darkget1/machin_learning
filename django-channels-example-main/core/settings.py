@@ -133,29 +133,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-# CELERY setting
-# CELERY_ALWAYS_EAGER = True
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-# CELERY_CACHE_BACKEND = 'django-cache'
-# CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
-#셋팅 알아야 할 필요가 있음
-CELERY_RESULT_BACKEND = 'django-db'
-# CELERY_ACCEPT_CONTENT = ['application/json']
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_TIMEZONE = 'Asia/Seoul'
-
-# SCHEDULE_MINUTE = 60
-# SCHEDULE_HOUR = 60 * SCHEDULE_MINUTE
-# SCHEDULE_DAY = 24 * SCHEDULE_HOUR
-# SCHEDULE_WEEK = 7 * SCHEDULE_DAY
-# SCHEDULE_MONTH = 30 * SCHEDULE_DAY
-#
-# CELERY_BEAT_SCHEDULE = {
-#     'ga_collect': {
-#         'task': 'app.tasks.ga_collect',
-#         'schedule': 5 * SCHEDULE_MINUTE,
-#         # 'schedule': 2.0,
-#         # 'args': (4, 4)
-#     }
-# }
