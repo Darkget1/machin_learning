@@ -108,7 +108,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_rabbitmq.core.RabbitmqChannelLayer",
+#         "CONFIG": {
+#             "host": "amqp://guest:guest@localhost:5672/",
+#             # "ssl_context": ... (optional)
+#         },
+#     },
+# }
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',

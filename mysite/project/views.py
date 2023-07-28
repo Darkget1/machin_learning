@@ -22,6 +22,10 @@ def project_create(request):
     context = {'form': form}
     return render(request, 'project/project_form.html', context)
 
+def project_detail(request, posting_id):
+    project = get_object_or_404(Project, pk=posting_id)
+    context = {'project': project}
+    return render(request, 'project/project_detail.html', context)
 def project_list(request):
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="clearfix mt-3 mb-3 mr-3">
+    </div>
+    <div class="project">
+        <div class="container">
+
+                <div class="col-md-10">
+                    <div id="bo_ho" class="we_box text_align_left">
+                        <i><img src="images/we1.png" alt="#"/></i>
+                        <h3>브랜드 : {{ project.subject }} <br>제품 : {{ project.target_product }}</h3>
+                        <p>메모 : {{ project.content }}
+                        </p>
+                        <h3>data log</h3>
+                        <textarea id="data-log" class="col-md-12"  rows="2"></textarea>
+                        <br/>
+
+                        <button class="read_more"  id="naver">크롤링</button>
+
+                    </div>
+
+                </div>
+
+
+        </div>
+    </div>
+    <script>
+        var roomName = {{ project.id }};
+
+        var chatSocket = new WebSocket(
+            'ws://' + window.location.host +
+            '/ws/project/detail/' + roomName + '/');
+
+        chatSocket.onmessage = function (e) {
+            var data = JSON.parse(e.data);
+            {#data['message']의 값이 받아오는 데이터값#}
+            var message = data['message'];
+            document.querySelector('#data-log').value += (message + '\n');
+        };
+
+        chatSocket.onclose = function (e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+
+        document.querySelector('#naver').onclick = function (e) {
+
+            chatSocket.send(JSON.stringify({
+                'command': 'naver',
+
+            }));
+
+            messageInputDom.value = '';
+        };
+
+
+    </script>
+{% endblock %}

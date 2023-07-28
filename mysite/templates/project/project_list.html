@@ -9,15 +9,17 @@
         {% for project in project_list %}
             <div class="project">
                 <div class="container">
-                    <div class="col-md-10">
-                        <div id="bo_ho" class="we_box text_align_left">
-                            <i><img src="images/we1.png" alt="#"/></i>
-                            <h3>{{ project.subject }} <br>{{ project.target_product }}</h3>
-                            <p>{{ project.content }}
-                            </p>
-                            <a class="read_more" href="we_do">Read More</a>
+                    <a href="{% url 'project:project_detail' project.id %}">
+                        <div class="col-md-10">
+                            <div id="bo_ho" class="we_box text_align_left">
+                                <i><img src="images/we1.png" alt="#"/></i>
+                                <h3>{{ project.subject }} <br>{{ project.target_product }}</h3>
+                                <p>{{ project.content }}
+                                </p>
+                                <a class="read_more" href="we_do">Read More</a>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         {% endfor %}
