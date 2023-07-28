@@ -1,24 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load static %}
-
-    <div class="project">
-        <div class="clearfix mt-3 mb-3 mr-3">
-            <button class="read_more float-right">프로젝트 생성</button>
-        </div>
-        <div class="container">
-            <div class="col-md-10">
-                <div id="bo_ho" class="we_box text_align_left">
-                    <i><img src="images/we1.png" alt="#"/></i>
-                    <h3>website <br>development</h3>
-                    <p>many variations of passages of Lorem Ipsum available, but the
-                        majority have suffered alteration in some form, by injected
-                        humour, or randomised words which
-                    </p>
-                    <a class="read_more" href="we_do">Read More</a>
+    <div class="clearfix mt-3 mb-3 mr-3">
+        <a class="read_more float-right" href="{% url 'project:project_create' %}">프로젝트 생성</a>
+    </div>
+    <tbody>
+    {% if project_list %}
+        {% for project in project_list %}
+            <div class="project">
+                <div class="container">
+                    <div class="col-md-10">
+                        <div id="bo_ho" class="we_box text_align_left">
+                            <i><img src="images/we1.png" alt="#"/></i>
+                            <h3>{{ project.subject }} <br>{{ project.target_product }}</h3>
+                            <p>{{ project.content }}
+                            </p>
+                            <a class="read_more" href="we_do">Read More</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
+        {% endfor %}
+    {% endif %}
+
+
+    </tbody>
 {% endblock %}
+{#{% block script %}#}
+{#<script type='text/javascript'>#}
+{# $(document).ready(function(){#}
+{#    $(".page-link").on('click', function() {#}
+{#       $("#page").val($(this).data("page"));#}
+{#       $("#searchForm").submit();#}
+{#    });#}
+{##}
+{#    $("#btn_search").on('click', function() {#}
+{#       $("#kw").val($(".kw").val());#}
+{#       $("#page").val(1);#}
+{#       $("#searchForm").submit();#}
+{#    });#}
+{##}
+{#    $(".so").on('change', function() {#}
+{#       $("#so").val($(this).val());#}
+{#       $("#page").val(1);#}
+{#       $("#searchForm").submit();#}
+{#    });#}
+{# });#}
+{#</script>#}
+{#{% endblock %}#}

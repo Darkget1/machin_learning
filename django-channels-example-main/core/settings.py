@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,3 +134,7 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+#비동기 orm
+
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'

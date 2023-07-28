@@ -1,29 +1,22 @@
-<!-- chat/templates/chat/room.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
-</head>
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="mt-3 mb-3 text-center">
 
-<body>
-<textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-<input id="chat-message-input" type="text" size="100"/><br/>
-<input id="chat-message-submit" type="button" value="Send"/>
-<button class="btn-custom" , id="naver">네이버</button>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
+    <input id="chat-message-input" type="text" size="100"/><br/>
+    <input id="chat-message-submit" type="button" value="Send"/>
+    <button class="btn-custom" , id="naver">네이버</button>
 
-{#<form action="#" method="get">#}
-{#    <button name="naver" value="click" class="waves-effect waves-light purple lighten-3 btn">네이버</button>#}
-{#</form>#}
+    </div>
 
-</body>
 
 <script>
     var roomName = {{ room_name_json }};
 
     var chatSocket = new WebSocket(
         'ws://' + window.location.host +
-        '/ws/project/room/' + roomName + '/');
+        '/ws/test/room/' + roomName + '/');
 
     chatSocket.onmessage = function (e) {
         var data = JSON.parse(e.data);
@@ -48,7 +41,7 @@
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
         chatSocket.send(JSON.stringify({
-            'command':'message',
+            'command': 'message',
             'message': message
         }));
 
@@ -58,7 +51,7 @@
     document.querySelector('#naver').onclick = function (e) {
 
         chatSocket.send(JSON.stringify({
-            'command':'naver',
+            'command': 'naver',
 
         }));
 
@@ -68,4 +61,5 @@
 
 </script>
 
-</html>
+
+{% endblock %}

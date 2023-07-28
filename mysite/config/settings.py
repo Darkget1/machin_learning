@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'django_celery_results',
+    'chat.apps.ChatConfig',
+    'test.apps.TestConfig',
     'project.apps.ProjectConfig',
     'posting.apps.PostingConfig',
     'common.apps.CommonConfig',
@@ -41,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chat.apps.ChatConfig',
-    'channels',
+
+
 ]
 
 MIDDLEWARE = [
@@ -147,4 +151,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
+# 비동기 ORM
 
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'

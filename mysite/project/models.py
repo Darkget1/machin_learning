@@ -10,6 +10,8 @@ class Project(models.Model):
                                related_name='author_project')
     subject = models.CharField(max_length=200)
     content = models.TextField()
+    crawling_status = models.IntegerField(default=0)
+    target_product = models.CharField(max_length=100)
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
     def __str__(self):

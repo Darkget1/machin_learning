@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="ko">
+    <head>
+        <title>Django Celery</title>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/css/materialize.min.css" media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div class="navbar-fixed">
+            <nav class="purple lighten-3">
+                <div class="nav-wrapper">
+                    <a href="./" class="brand-logo center">Django Celery</a>
+                </div>
+            </nav>
+        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col s9">
+                        {% for content in operate_list %}
+                        <!-- Grey navigation panel -->
+                        <div class="card">
+                            <div class="card-content">
+                                <p>버튼클릭 : {{ content.click_time|time:"g:i:s.u" }}</p>
+                                <p>처리완료 : {{ content.done_time|time:"g:i:s.u" }}</p>
+                                <p>시간차이 : {{ content.time_gap }}</p>
+                                <p>누른버튼 : {{ content.click_command }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col s3">
+                        <!-- Teal page content  -->
+                        <div class="col s12">
+                            <form action="#" method="get">
+                                <p></p>
+                                <button name="operate" value="click" class="waves-effect waves-light purple lighten-3 btn">OPERATE</button>
+                                <p></p>
+                                <button name="operate_delay" value="click" class="waves-effect waves-light purple lighten-3 btn">OPERATE(delay 10s)</button>
+                                <p></p>
+                                <button name="celery" value="click" class="waves-effect waves-light purple lighten-3 btn">CELERY</button>
+                                <p></p>
+                                <button name="celery_delay" value="click" class="waves-effect waves-light purple lighten-3 btn">CELERY(delay 10s)</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--Import .js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    </body>
+</html>

@@ -8,16 +8,14 @@ import json
 
 # Create your views here.
 def index(request):
-    return render(request,'project/index.html',{})
+    return render(request,'test/index.html',{})
 
 def room(request, room_name):
     print(request)
     # if (request.GET.get('naver')):
     #     naver.delay()
     #     print('naver 작업 시작 받음')
-
-
-    return render(request, 'project/room.html', {
+    return render(request, 'test/room.html', {
         'room_name_json': mark_safe(json.dumps(room_name))
     })
 
@@ -65,5 +63,5 @@ def app_core(request):
         celery_delay()
         print('celery_delay 작업 시작 받음')
 
-    return render(request, 'project/django_celery_main.html', {'operate_list': operate_list})
+    return render(request, 'test/django_celery_main.html', {'operate_list': operate_list})
 

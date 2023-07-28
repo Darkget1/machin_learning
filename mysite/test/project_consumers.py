@@ -1,6 +1,3 @@
-# chat/consumers.py
-
-from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from .tasks import naver

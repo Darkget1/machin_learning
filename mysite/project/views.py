@@ -1,9 +1,27 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from project.models import Project
+from django.utils import timezone
+from project.forms import ProjectForm
+
 
 # Create your views here.
+
+def project_create(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.author = request.user
+            project.create_date = timezone.now()
+            project.save()
+            return redirect('project:project_index')
+    else:
+        form = ProjectForm()
+    context = {'form': form}
+    return render(request, 'project/project_form.html', context)
+
 def project_list(request):
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')
