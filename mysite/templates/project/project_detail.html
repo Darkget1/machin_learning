@@ -6,54 +6,47 @@
     <div class="project">
         <div class="container">
 
-                <div class="col-md-10">
-                    <div id="bo_ho" class="we_box text_align_left">
-                        <i><img src="images/we1.png" alt="#"/></i>
-                        <h3>브랜드 : {{ project.subject }} <br>제품 : {{ project.target_product }}</h3>
-                        <p>메모 : {{ project.content }}
-                        </p>
-                        <h3>data log</h3>
-                        <textarea id="data-log" class="col-md-12"  rows="2"></textarea>
-                        <br/>
+            <div class="col-md-10">
+                <div id="bo_ho" class="we_box text_align_left">
+                    <i><img src="images/we1.png" alt="#"/></i>
+                    <h3>브랜드 : {{ project.subject }} <br>제품 : {{ project.target_product }}</h3>
+                    <p>메모 : {{ project.content }}
+                    </p>
+                    <progress class="col-10" value="20" max="100" id="total_progress"></progress>
+                    <h5>댓글 수집 진행</h5>
+                    <progress class="col-10" value="20" max="200" id="comment_progress"></progress>
+                    <h3>data log</h3>
+                    <textarea id="data-log" class="col-md-12" rows="2"></textarea>
+                    <br/>
 
-                        <button class="read_more"  id="naver">크롤링</button>
-
-                    </div>
+                    <button class="read_more" id="naver">크롤링</button>
 
                 </div>
+
+            </div>
 
 
         </div>
     </div>
     <script>
         var roomName = {{ project.id }};
-
         var chatSocket = new WebSocket(
             'ws://' + window.location.host +
             '/ws/project/detail/' + roomName + '/');
 
         chatSocket.onmessage = function (e) {
             var data = JSON.parse(e.data);
-            {#data['message']의 값이 받아오는 데이터값#}
-            var message = data['message'];
-            document.querySelector('#data-log').value += (message + '\n');
+            document.querySelector('#data-log').value = data.message;
+            document.querySelector('#total_progress').value = data.cnt;
         };
-
         chatSocket.onclose = function (e) {
             console.error('Chat socket closed unexpectedly');
         };
-
-
         document.querySelector('#naver').onclick = function (e) {
-
             chatSocket.send(JSON.stringify({
                 'command': 'naver',
-
             }));
-
             messageInputDom.value = '';
         };
-
-
     </script>
 {% endblock %}

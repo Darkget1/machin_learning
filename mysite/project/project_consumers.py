@@ -8,7 +8,7 @@ from project.tasks import naver
 class projectConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
+        self.room_group_name = 'project_%s' % self.room_name
 
 
         # Join room group
@@ -39,14 +39,7 @@ class projectConsumer(WebsocketConsumer):
         print(text_data_json)
         if text_data_json['command']=='naver':
             print('naver')
-            naver.delay(self.room_name)
-            async_to_sync(self.channel_layer.group_send)(
-                self.room_group_name,
-                {
-                    'type': 'chat_message',
-                    'message': 'naver_start'
-                }
-            )
+            naver.delay(self.room_group_name)
 
         else:
             message = text_data_json['message']
@@ -62,10 +55,13 @@ class projectConsumer(WebsocketConsumer):
 
     # Receive message from room group
     def chat_message(self, event):
+        cnt = event['cnt']
         message = event['message']
-
+        print(message)
+        print(cnt)
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message
+            'message': message,
+            'cnt': cnt,
         }))
 

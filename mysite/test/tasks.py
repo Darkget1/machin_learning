@@ -43,13 +43,13 @@ def celery_delay():
     form_new.save()
 
 @shared_task
-def naver():
+def naver(room_name):
     print('크롤링 시작')
     url = "https://kin.naver.com/qna/list.naver"
     options = webdriver.ChromeOptions()
     # 창 숨기는 옵션 추가
     options.add_argument("headless")
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(version='114.0.5735.90').install()))
+    driver = webdriver.Chrome()
     driver.get(url)
     data_list = driver.find_elements(By.CLASS_NAME, 'title')
     for data in data_list:
@@ -60,7 +60,7 @@ def naver():
 
         async_to_sync(get_channel_layer().group_send)(
             #그룹네임은 나중에 새로 설정할 필요성이 있다.
-            'chat_1',{
+            room_name,{
                 'type': 'chat_message',
                 'command' : 'message',
                 'message': content

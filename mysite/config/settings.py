@@ -26,7 +26,7 @@ SECRET_KEY = 'qxt_k@l1l1$%y$2l15t)*2-=yl*4282cms6+00^ibb+$@hw4ai'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 #     "default": {
 #         "BACKEND": "channels_rabbitmq.core.RabbitmqChannelLayer",
 #         "CONFIG": {
-#             "host": "amqp://guest:guest@localhost:5672/",
+#             "host": "amqp://guest:guest@127.0.0.1/asgi",
 #             # "ssl_context": ... (optional)
 #         },
 #     },
@@ -162,3 +162,5 @@ MEDIA_URL = '/media/'
 # 비동기 ORM
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'
+
+

@@ -6,6 +6,7 @@ from celery import shared_task
 from channels.layers import get_channel_layer
 
 from .models import operate_time,Crawling
+from selenium.webdriver.chrome.service import Service
 from django.utils import timezone
 import time
 from selenium import webdriver
@@ -49,7 +50,7 @@ def naver():
     options = webdriver.ChromeOptions()
     # 창 숨기는 옵션 추가
     options.add_argument("headless")
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(version='114.0.5735.90').install()))
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version='114.0.5735.90').install()))
     driver.get(url)
     data_list = driver.find_elements(By.CLASS_NAME, 'title')
     for data in data_list:
