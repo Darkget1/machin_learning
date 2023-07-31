@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load static %}
-    <div class="clearfix mt-3 mb-3 mr-3">
+    <div class="project clearfix mt-3 mb-3 mr-3">
         <a class="read_more float-right" href="{% url 'project:project_create' %}">프로젝트 생성</a>
     </div>
     <tbody>
@@ -12,11 +12,11 @@
                     <a href="{% url 'project:project_detail' project.id %}">
                         <div class="col-md-10">
                             <div id="bo_ho" class="we_box text_align_left">
-                                <i><img src="images/we1.png" alt="#"/></i>
+                                <i><img src="{% static 'images/smaple.png' %}" style='width: 30px;'></i>
                                 <h3>{{ project.subject }} <br>{{ project.target_product }}</h3>
                                 <p>{{ project.content }}
                                 </p>
-                                <a class="read_more" href="we_do">Read More</a>
+
                             </div>
                         </div>
                     </a>

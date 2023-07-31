@@ -24,10 +24,12 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
+
 class ceat_scraper:
     def __init__(self, url):
         self.crawler = ceat_crawler(url)
         self.parser = ceat_parser()
+
 
 class ceat_crawler():
 
@@ -70,17 +72,30 @@ class ceat_crawler():
             elements = ""
 
             if by == "class":
-                elements = self.driver.find_elements(By.CLASS_NAME, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.CLASS_NAME, elements_key))
+                )
             elif by == "tag":
-                elements = self.driver.find_elements(By.TAG_NAME, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.TAG_NAME, elements_key))
+                )
             elif by == "id":
-                elements = self.driver.find_elements(By.ID, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.ID, elements_key))
+                )
+
             elif by == "css_selector":
-                elements = self.driver.find_elements(By.CSS_SELECTOR, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.CSS_SELECTOR, elements_key))
+                )
             elif by == "xpath":
-                elements = self.driver.find_elements(By.XPATH, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.XPATH, elements_key))
+                )
             elif by == "partial_link_text":
-                elements = self.driver.find_elements(By.PARTIAL_LINK_TEXT, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.PARTIAL_LINK_TEXT, elements_key))
+                )
             else:
                 print("Wrong by value")
 
@@ -94,17 +109,29 @@ class ceat_crawler():
             element = ''
 
             if by == "class":
-                element = self.driver.find_element(By.CLASS_NAME, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.CLASS_NAME, element_key))
+                )
             elif by == "tag":
-                element = self.driver.find_element(By.TAG_NAME, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.TAG_NAME, element_key))
+                )
             elif by == "id":
-                element = self.driver.find_element(By.ID, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.ID, element_key))
+                )
             elif by == "css_selector":
-                element = self.driver.find_element(By.CSS_SELECTOR, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, element_key))
+                )
             elif by == "xpath":
-                element = self.driver.find_element(By.XPATH, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.XPATH, element_key))
+                )
             elif by == "partial_link_text":
-                element = self.driver.find_element(By.PARTIAL_LINK_TEXT, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, element_key))
+                )
             else:
                 print("Wrong by value")
 
@@ -117,7 +144,9 @@ class ceat_crawler():
         print("click_btn() : {}".format(desc))
 
         try:
-            element = self.find_element(by, element_key)
+            element = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, element_key))
+            )
             if mode == "click":
                 if element is False:
                     return False
@@ -140,7 +169,9 @@ class ceat_crawler():
         print("search_item() : {}".format(item))
 
         try:
-            search_box = self.find_element(by, element_key)
+            search_box =  WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, element_key))
+                )
             search_box.clear()
             search_box.send_keys(item)
             search_box.send_keys(Keys.ENTER)
@@ -180,6 +211,7 @@ class ceat_crawler():
     def get_cur_url(self):
         return self.driver.current_url
 
+
 class ceat_parser:
     # logger = ''
     # data_series = ''
@@ -205,17 +237,30 @@ class ceat_parser:
             elements = ""
 
             if by == "class":
-                elements = web_element.find_elements(By.CLASS_NAME, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.CLASS_NAME, elements_key))
+                )
             elif by == "tag":
-                elements = web_element.find_elements(By.TAG_NAME, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.TAG_NAME, elements_key))
+                )
             elif by == "id":
-                elements = web_element.find_elements(By.ID, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.ID, elements_key))
+                )
+
             elif by == "css_selector":
-                elements = web_element.find_elements(By.CSS_SELECTOR, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.CSS_SELECTOR, elements_key))
+                )
             elif by == "xpath":
-                elements = web_element.find_elements(By.XPATH, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.XPATH, elements_key))
+                )
             elif by == "partial_link_text":
-                elements = web_element.find_elements(By.PARTIAL_LINK_TEXT, elements_key)
+                elements = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.PARTIAL_LINK_TEXT, elements_key))
+                )
             else:
                 print("Wrong by value")
 
@@ -229,17 +274,29 @@ class ceat_parser:
             element = ''
 
             if by == "class":
-                element = web_element.find_element(By.CLASS_NAME, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.CLASS_NAME, element_key))
+                )
             elif by == "tag":
-                element = web_element.find_element(By.TAG_NAME, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.TAG_NAME, element_key))
+                )
             elif by == "id":
-                element = web_element.find_element(By.ID, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.ID, element_key))
+                )
             elif by == "css_selector":
-                element = web_element.find_element(By.CSS_SELECTOR, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, element_key))
+                )
             elif by == "xpath":
-                element = web_element.find_element(By.XPATH, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.XPATH, element_key))
+                )
             elif by == "partial_link_text":
-                element = web_element.find_element(By.PARTIAL_LINK_TEXT, element_key)
+                element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, element_key))
+                )
             else:
                 print("Wrong by value")
 
@@ -295,6 +352,3 @@ class ceat_parser:
     #     print("================================================")
     #     print(self.data_series[name])
     #     print("================================================")
-
-
-

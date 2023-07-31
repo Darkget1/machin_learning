@@ -6,6 +6,7 @@ from celery import shared_task
 from channels.layers import get_channel_layer
 
 from test.models import operate_time, Crawling
+from project.models import Project
 from django.utils import timezone
 import time
 from selenium import webdriver
@@ -41,9 +42,15 @@ def celery_delay():
 
 
 @shared_task
-def naver(group_name):
+def naver(group_name,room_name):
     print('크롤링 시작')
     print(group_name)
+    #크롤링 시작시 스테이터스 1(진행중)
+    project = Project.objects.get(pk=room_name)
+    project.crawling_status = '1'
+    project.save()
+
+
     url = "https://kin.naver.com/qna/list.naver"
     options = webdriver.ChromeOptions()
     # 창 숨기는 옵션 추가
@@ -68,6 +75,9 @@ def naver(group_name):
 
             }
         )
+    #종료시 0으로 변경
+    project.crawling_status = '0'
+    project.save()
 
 
 @shared_task

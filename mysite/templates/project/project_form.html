@@ -19,19 +19,19 @@
         {% endif %}
         <!-- 오류표시 End -->
         <div class="mb-3">
-            <label for="subject" class="form-label">제목</label>
+            <label for="subject" class="form-label">프로젝트명 (브랜드)</label>
             <input type="text" class="form-control" name="subject" id="subject"
                    value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="target_product" class="form-label">제품</label>
+            <input class="form-control" name="target_product"
+                      id="target_product" rows="10" value="{{ form.target_product.value|default_if_none:'' }}">
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
             <textarea class="form-control" name="content"
                       id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="target_product" class="form-label">제품</label>
-            <textarea class="form-control" name="target_product"
-                      id="target_product" rows="10">{{ form.target_product.value|default_if_none:'' }}</textarea>
         </div>
         <button type="submit" class="btn custom-btn bg-color mt-3">등록</button>
     </form>

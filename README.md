@@ -7,7 +7,15 @@ add interpreter
 패키지 설치 진행 
 패키지 설치 : pip install -r requirements.txt 
 패키지 업로드 : pip freeze > requirements.txt
+
+# channels
+window 기준 3.0.4+ redis->version==5.0.14.1
+패키지 : channels-3.0.4 , channels-redis
+
+
+
 # celery 작업정보 보기
+패키지 : django-celery-results ,celery
 window에서
 celery -A core worker -l info -P gevent
 window에서 필요한 패키지 

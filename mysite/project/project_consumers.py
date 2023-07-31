@@ -39,7 +39,8 @@ class projectConsumer(WebsocketConsumer):
         print(text_data_json)
         if text_data_json['command']=='naver':
             print('naver')
-            naver.delay(self.room_group_name)
+
+            naver.delay(self.room_group_name,self.room_name)
 
         else:
             message = text_data_json['message']

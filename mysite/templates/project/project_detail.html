@@ -5,48 +5,60 @@
     </div>
     <div class="project">
         <div class="container">
-
             <div class="col-md-10">
                 <div id="bo_ho" class="we_box text_align_left">
-                    <i><img src="images/we1.png" alt="#"/></i>
                     <h3>브랜드 : {{ project.subject }} <br>제품 : {{ project.target_product }}</h3>
                     <p>메모 : {{ project.content }}
                     </p>
-                    <progress class="col-10" value="20" max="100" id="total_progress"></progress>
-                    <h5>댓글 수집 진행</h5>
-                    <progress class="col-10" value="20" max="200" id="comment_progress"></progress>
+                    <h5>전체 수집 진행률</h5>
+                    <progress class="col-10" value="0" max="100" id="total_progress"></progress>
+                    <h5>댓글 수집 진행률</h5>
+                    <progress class="col-10" value="0" max="200" id="comment_progress"></progress>
                     <h3>data log</h3>
-                    <textarea id="data-log" class="col-md-12" rows="2"></textarea>
+                    <input id="data-log" class="col-md-12" rows="2">
                     <br/>
-
-                    <button class="read_more" id="naver">크롤링</button>
-
+                    <div class="clearfix">
+                        <button class="read_more float-right mr-3 ml-3" id="setting" href="">설정</button>
+                        <button class="read_more float-right" id="naver">크롤링</button>
+                    </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
     <script>
+        const naver = document.getElementById('naver');
         var roomName = {{ project.id }};
         var chatSocket = new WebSocket(
             'ws://' + window.location.host +
             '/ws/project/detail/' + roomName + '/');
+        if ({{ project.crawling_status }}=='1'
+        )
+        {
+            naver.style.display = 'none';
+
+        }
 
         chatSocket.onmessage = function (e) {
             var data = JSON.parse(e.data);
             document.querySelector('#data-log').value = data.message;
             document.querySelector('#total_progress').value = data.cnt;
+            {#100%가되면 히든 해제 #}
+            if (data.cnt == '100') {
+                naver.style.display = 'block';
+            }
         };
         chatSocket.onclose = function (e) {
             console.error('Chat socket closed unexpectedly');
         };
         document.querySelector('#naver').onclick = function (e) {
+            {#버튼 히든처리#}
+            naver.style.display = 'none';
             chatSocket.send(JSON.stringify({
                 'command': 'naver',
             }));
             messageInputDom.value = '';
+
         };
+
     </script>
 {% endblock %}
