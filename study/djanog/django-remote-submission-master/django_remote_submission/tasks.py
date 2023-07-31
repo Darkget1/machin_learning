@@ -73,7 +73,7 @@ def is_matching(filename, patterns=None):
     Each pattern is checked in turn, so the list of patterns ``["!*.txt",
     "1.txt"]`` will still match ``"1.txt"``.
 
-    >>> from django_remote_submission.tasks import is_matching
+    >>> from django_remote_submission import is_matching
     >>> is_matching("1.txt", patterns=["1.txt"])
     True
     >>> is_matching("1.txt", patterns=["[12].txt"])
@@ -117,7 +117,7 @@ class LogContainer(object):
            owner=user, server=server, interpreter=python3,
        )
 
-    >>> from django_remote_submission.tasks import LogContainer, LogPolicy
+    >>> from django_remote_submission import LogContainer, LogPolicy
     >>> from datetime import datetime
     >>> now = datetime(year=2017, month=1, day=2, hour=3, minute=4, second=5)
     >>> logs = LogContainer(job, LogPolicy.LOG_LIVE)
@@ -392,7 +392,7 @@ def copy_key_to_server(username, password, hostname, port=22,
     do not need the password any further
 
     This can be used as a Celery task, if the library is installed and running.
-    
+
     :param str username: the username of the user submitting
     :param str password: the password of the user submitting the job
     :param str hostname: The hostname used to connect to the server
@@ -401,7 +401,7 @@ def copy_key_to_server(username, password, hostname, port=22,
     :param bool remote: Either runs this task locally on the host or in a remote server.
 
     """
-    
+
     wrapper_cls = RemoteWrapper if remote else LocalWrapper
 
     wrapper = wrapper_cls(
@@ -427,7 +427,7 @@ def delete_key_from_server(username, password, hostname, port=22,
     will need password. This can be used at the logout of the session.
 
     This can be used as a Celery task, if the library is installed and running.
-    
+
     :param str username: the username of the user submitting
     :param str password: the password of the user submitting the job
     :param str hostname: The hostname used to connect to the server
@@ -436,7 +436,7 @@ def delete_key_from_server(username, password, hostname, port=22,
     :param bool remote: Either runs this task locally on the host or in a remote server.
 
     """
-   
+
     wrapper_cls = RemoteWrapper if remote else LocalWrapper
 
     wrapper = wrapper_cls(

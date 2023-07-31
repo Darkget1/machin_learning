@@ -66,7 +66,7 @@ class ListField(models.TextField):  # noqa: D101
 class Interpreter(TimeStampedModel):
     """Encapsulates the executable and required arguments for each interpreter.
 
-    >>> from django_remote_submission.models import Interpreter
+    >>> from django_remote_submission import Interpreter
     >>> python3 = Interpreter(
     ...     name='Python 3',
     ...     path='/usr/bin/python3',
@@ -112,7 +112,7 @@ class Server(TimeStampedModel):
        from django_remote_submission.models import Interpreter
        python3 = Interpreter(name='Python 3', path='/bin/python3', arguments=['-u'])
 
-    >>> from django_remote_submission.models import Server
+    >>> from django_remote_submission import Server
     >>> server = Server(
     ...     title='Remote',
     ...     hostname='foo.invalid',
@@ -167,7 +167,7 @@ class Job(TimeStampedModel):
        server = Server(title='Remote', hostname='foo.invalid', port=22)
        user = get_user_model()(username='john')
 
-    >>> from django_remote_submission.models import Job
+    >>> from django_remote_submission import Job
     >>> job = Job(
     ...     title='My Job',
     ...     program='print("hello world")',
@@ -328,7 +328,7 @@ class Log(models.Model):
            owner=user, server=server, interpreter=python3,
        )
 
-    >>> from django_remote_submission.models import Log
+    >>> from django_remote_submission import Log
     >>> from datetime import datetime
     >>> log = Log(
     ...     time=datetime(year=2017, month=1, day=2, hour=3, minute=4, second=5),
@@ -406,7 +406,7 @@ class Result(TimeStampedModel):
            owner=user, server=server, interpreter=python3,
        )
 
-    >>> from django_remote_submission.models import Result
+    >>> from django_remote_submission import Result
     >>> result = Result(
     ...     remote_filename='1.txt',
     ...     job=job,

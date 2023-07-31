@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.db import migrations, models
-import django.db.models.deletion
 import django.utils.timezone
 import django_remote_submission.models
 import model_utils.fields

@@ -8,7 +8,7 @@ from .models import Server, Job, Log, Result
 class ServerSerializer(serializers.ModelSerializer):
     """Serialize :class:`django_remote_submission.models.Server` instances.
 
-    >>> from django_remote_submission.serializers import ServerSerializer
+    >>> from django_remote_submission import ServerSerializer
     >>> serializer = ServerSerializer(data={
     ...     'id': 1,
     ...     'title': 'My Server',
@@ -28,7 +28,7 @@ class ServerSerializer(serializers.ModelSerializer):
 class JobSerializer(serializers.ModelSerializer):
     """Serialize :class:`django_remote_submission.models.Job` instances.
 
-    >>> from django_remote_submission.serializers import JobSerializer
+    >>> from django_remote_submission import JobSerializer
     >>> serializer = JobSerializer(data={
     ...     'id': 1,
     ...     'title': 'My Job',
@@ -50,7 +50,7 @@ class JobSerializer(serializers.ModelSerializer):
 class LogSerializer(serializers.ModelSerializer):
     """Serialize :class:`django_remote_submission.models.Log` instances.
 
-    >>> from django_remote_submission.serializers import LogSerializer
+    >>> from django_remote_submission import LogSerializer
     >>> serializer = LogSerializer(data={
     ...     'id': 1,
     ...     'time': '2012-04-23T18:25:43.511Z',
