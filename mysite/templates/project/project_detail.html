@@ -8,8 +8,16 @@
             <div class="col-md-10">
                 <div id="bo_ho" class="we_box text_align_left">
                     <h3>브랜드 : {{ project.subject }} <br>제품 : {{ project.target_product }}</h3>
-                    <p>메모 : {{ project.content }}
-                    </p>
+                    <p>메모 : {{ project.content }}</p>
+                    <p>
+
+
+                        제품 리스트 :
+                    {{ project_setting.brand_add | json_script:'brand_list' }}
+
+
+
+                    <p>수집 기간 {{ project_setting.date_1st.date }} ~ {{ project_setting.date_2nd.date }}</p>
                     <h5>전체 수집 진행률</h5>
                     <progress class="col-10" value="0" max="100" id="total_progress"></progress>
                     <h5>댓글 수집 진행률</h5>
@@ -18,7 +26,8 @@
                     <input id="data-log" class="col-md-12" rows="2">
                     <br/>
                     <div class="clearfix">
-                        <button class="read_more float-right mr-3 ml-3" id="setting" href="">설정</button>
+                        <a class="read_more float-right mr-3 ml-3" id="setting"
+                           href="{% url 'project:project_setting_modify' project_setting.id %}">설정</a>
                         <button class="read_more float-right" id="naver">크롤링</button>
                     </div>
                 </div>

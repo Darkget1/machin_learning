@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from project.models import Project
+from project.models import Project ,Project_setting
 from django.utils import timezone
 from project.forms import ProjectForm
 
@@ -22,9 +22,11 @@ def project_create(request):
     context = {'form': form}
     return render(request, 'project/project_form.html', context)
 
-def project_detail(request, posting_id):
-    project = get_object_or_404(Project, pk=posting_id)
-    context = {'project': project}
+def project_detail(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+    project_setting = get_object_or_404(Project_setting,project_id=project_id)
+
+    context = {'project': project,'project_setting':project_setting}
     return render(request, 'project/project_detail.html', context)
 def project_list(request):
     page = request.GET.get('page', '1')  # 페이지
