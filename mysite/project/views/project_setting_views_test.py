@@ -13,6 +13,7 @@ def project_setting_modify(request, project_setting_id):
     if request.method == "POST":
         form = Project_settingForm(request.POST, instance=project_setting)
         if form.is_valid():
+
             project_setting_form = form.save(commit=False)
             project_setting_form.modify_date = timezone.now()  # 수정일시 저장
             project_setting_form.save()

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-        <h5 class="my-3 border-bottom pb-2">프로젝트 수정</h5>
+        <h1 class="my-3 border-bottom pb-2">프로젝트 수정</h1>
         <form method="post" class="post-form my-3">
             {% csrf_token %}
             <!-- 오류표시 Start -->
@@ -19,39 +19,100 @@
             {% endif %}
             <!-- 오류표시 End -->
             <div class="mb-3">
+                <div class="input-group col-5 mb-3">
+                    <input type="text" class="form-control bg-white" value="추가브랜드" disabled>
+                    <div class="input-group-append">
+                        <input class="btn input-group-btn btn-dark" type="button" value="추가" onclick="add_textbox()">
+                    </div>
+                </div>
                 <div id="brand_add_list">
-                    <label for="brand_add" class="form-label">브랜드 추가</label>
-                    <input class="btn custom-btn bg-color mt-1" type="button" value="추가" onclick="add_textbox()"><br>
+                    {% with form.brand_add.value|split:"," as brand_list %}
+                        {% for brand in brand_list %}
+                            <div class="input-group col-5 mb-3">
+                                <input type="text" class="form-control bg-white" name='brand' value="{{ brand }}">
+                                <div class="input-group-append">
+                                    <input class="btn input-group-btn btn-dark" type="button" value="삭제"
+                                           onclick='remove(this)'>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
+
+                </div>
+            </div>
+            <h5 class="my-3 border-bottom pb-2"></h5>
+            <div class="mb-3">
+                {#                <label for="mall_name" class="form-label">쇼핑몰</label>#}
+                <div class="input-group col-5 mb-3">
+                    <input type="text" class="form-control bg-white" value="쇼핑몰"  disabled>
+                    <div class="input-group-append">
+                        <select class="form-control input-group-text" style="background-color: white" name="mall_name">
+                            <option value="">선택하세요</option>
+                            <option value="naver">naver</option>
+                            <option value="coupang">coupang</option>
+                        </select>
+                    </div>
                 </div>
 
-                {#                <input type="text" class="form-control" name="brand_add" id="brand_add"#}
-                {#                       value="{{ form.brand_add.value|default_if_none:'' }}">#}
 
             </div>
             <div class="mb-3">
-                <label for="target_product" class="form-label">기간1</label>
-                <div type="date" class="form-control" name="기간1"
-                     rows="10" value="{{ form.date_1st.value|default_if_none:'' }}"></div>
+                <div class="input-group col-5 mb-3">
+                    <input type="text" class="form-control bg-white" value="기간1" disabled>
+                    <div class="input-group-append">
+                        <input type="date" class="form-control input-group-text" style="background-color: white" name="date_1st"
+                               rows="10" value="{{ form.date_1st.value|date:'Y-m-d' }}">
+                    </div>
+                </div>
+                <div class="input-group col-5 mb-3">
+                    <input type="text" class="form-control bg-white" value="기간2" disabled>
+                    <div class="input-group-append">
+                        <input type="date" class="form-control input-group-text" style="background-color: white" name="date_2nd"
+                               rows="10" value="{{ form.date_2nd.value|date:'Y-m-d' }}">
+                    </div>
+
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="content" class="form-label">기간2</label>
-                <div type="date" class="form-control" name="기간2"
-                     rows="10" value="{{ form.date_2nd.value|default_if_none:'' }}"></div>
-            </div>
-            <button type="submit" class="btn custom-btn bg-color mt-3">수정</button>
+            <input class='form-control' name='brand_add' id="list" type='hidden'>
+            <button type="submit" class="btn custom-btn bg-black mt-3" onclick="getlist()">수정</button>
         </form>
     </div>
-<script>
-    const add_textbox = () => {
-        const brand_add = document.getElementById("brand_add_list");
-        const new_brand = document.createElement('new_brand');
-        new_brand.innerHTML = "<input class='mt-1' type='text'> <input type='button' name='브랜드추가' class='btn custom-btn bg-color mt-1' value='삭제' onclick='remove(this)'>";
-        brand_add.appendChild(new_brand);
-    }
-    const remove = (obj) => {
-        document.getElementById('brand_add_list').removeChild(obj.parentNode);
-    }
-</script>
+
+
+
+
+
+
+
+
+    <script>
+
+        const add_textbox = () => {
+            const brand_add = document.getElementById("brand_add_list");
+            const new_brand = document.createElement('div');
+            new_brand.className = 'input-group col-5 mb-3';
+            new_brand.innerHTML =
+                "<input type='text' class='form-control bg-white' name='brand'>" +
+                "<div class='input-group-append'>" +
+                "<input class='btn input-group-btn btn-dark' type='button' value='삭제'onclick='remove(this)'>" +
+                "</div>";
+
+            brand_add.appendChild(new_brand);
+        }
+        const remove = (obj) => {
+            document.getElementById('brand_add_list').removeChild(obj.parentNode.parentNode);
+
+
+        }
+
+        function getlist() {
+            var list = new Array();
+            $("input[name=brand]").each(function (index, item) {
+                list.push($(item).val());
+
+            });
+            $("#list").val(list);
+        }
+    </script>
 
 {% endblock %}
-

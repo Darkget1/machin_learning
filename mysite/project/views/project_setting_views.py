@@ -18,6 +18,6 @@ def project_setting_modify(request, project_setting_id):
             project_setting_form.save()
             return redirect('project:project_detail', project_id=project_setting.project.id)
     else:
-        form = Project_settingForm(instance=Project_setting)
+        form = Project_settingForm(instance=project_setting)
     context = {'form': form}
     return render(request, 'project/project_setting_form.html', context)

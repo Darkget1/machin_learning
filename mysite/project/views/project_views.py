@@ -4,6 +4,8 @@ from django.db.models import Q, Count
 from project.models import Project ,Project_setting
 from django.utils import timezone
 from project.forms import ProjectForm
+#필터 적용
+from django.template.defaulttags import register
 
 
 # Create your views here.
@@ -55,3 +57,9 @@ def project_list(request):
     page_obj = paginator.get_page(page)
     context = {'project_list': page_obj, 'page': page, 'kw': kw, 'so': so}
     return render(request, 'project/project_list.html', context)
+
+#split필터를 사용할수있도록 한다.
+@register.filter(name='split')
+def split(value, key):
+    value.split("key")
+    return value.split(key)

@@ -3,8 +3,8 @@
 # Create your models here.
 from common.models import User
 from django.db import models
-from django.utils import timezone
-
+from django.utils import dateformat,timezone
+import datetime
 
 class Project(models.Model):
     default = 1
@@ -23,11 +23,12 @@ class Project(models.Model):
 
 class Project_setting(models.Model):
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
-    date_1st = models.DateTimeField(default=timezone.now(), blank=True)
-    date_2nd = models.DateTimeField(default=timezone.now(), blank=True)
+    date_1st = models.DateField(default=timezone.now, blank=True)
+    date_2nd = models.DateField(default=timezone.now, blank=True)
     brand_add = models.TextField(null=True, blank=True)
     modify_date = models.DateTimeField(null=True, blank=True)
     create_date = models.DateTimeField(default=timezone.now,blank=True)
+    mall_name = models.CharField(max_length=10,null=True,blank=True)
 
 
 
