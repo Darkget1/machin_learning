@@ -4,9 +4,9 @@ import multiprocessing
 
 
 # from ceat_common.ceat_logging import
-from ceat_crawling.ceat_data_collector.ceat_data_collector_scpecify.ceat_comparison_list import comparison_list
-from ceat_crawling.ceat_data_collector.ceat_data_collector_scpecify.ceat_coupang import coupang_scenario
-from ceat_crawling.ceat_data_collector.ceat_data_collector_scpecify.ceat_naver import naver_scenario
+from ceat_data_collector.ceat_data_collector_scpecify.ceat_comparison_list import comparison_list
+from ceat_data_collector.ceat_data_collector_scpecify.ceat_coupang import coupang_scenario
+from ceat_data_collector.ceat_data_collector_scpecify.ceat_naver import naver_scenario
 
 from flask import request
 from flask_restx import Resource, Namespace, fields

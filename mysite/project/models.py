@@ -30,5 +30,14 @@ class Project_setting(models.Model):
     create_date = models.DateTimeField(default=timezone.now,blank=True)
     mall_name = models.CharField(max_length=10,null=True,blank=True)
 
+class ProjectUrl(models.Model):
+    project = models.ForeignKey(Project,on_delete=models.CASCADE)
+    mall_name = models.CharField(max_length=10)
+    url_title = models.CharField(max_length=100,null=True, blank=True)
+    url= models.TextField(null=True, blank=True)
+
+
+
+
 
 

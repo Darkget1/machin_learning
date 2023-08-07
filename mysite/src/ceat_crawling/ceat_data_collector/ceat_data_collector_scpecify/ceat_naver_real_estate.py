@@ -1,8 +1,8 @@
 import os
 import sys
 
-from ceat_crawling.ceat_data_collector.ceat_scraper import *
-from ceat_crawling.ceat_common.ceat_common import *
+from src.ceat_crawling.ceat_data_collector.ceat_scraper import *
+from src.ceat_crawling.ceat_common.ceat_common import *
 class naver_scenario_real_estate:
     logger = ''
     naver_url = ""

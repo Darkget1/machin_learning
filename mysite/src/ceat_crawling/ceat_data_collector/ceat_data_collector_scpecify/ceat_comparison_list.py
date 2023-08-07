@@ -5,8 +5,8 @@ import openpyxl
 import pandas as pd
 
 
-from ceat_crawling.ceat_common import *
-from ceat_crawling.ceat_data_collector import *
+from src.ceat_crawling.ceat_common import *
+from src.ceat_crawling.ceat_data_collector import *
 
 class comparison_list:
 
@@ -25,6 +25,7 @@ class comparison_list:
 
     def comparison_load(self):
         load_directory = os.path.join(get_root_path(), "storage", "collector_data", self.search_key)
+        print(load_directory)
         load_filename = "comparison_list.xlsx"
         load_path = os.path.join(load_directory, load_filename)
         return pd.read_excel(load_path, engine='openpyxl')["comparison_list"]
@@ -42,7 +43,7 @@ class comparison_list:
             self.comparison_open()
 
             # comparison url search
-            self.scraper.crawler.search_item('xpath', '//*[@id="__next"]/div/div[1]/div/div/div[2]/div/div[2]/div/div[2]/form/div[1]/div/input', self.search_key)
+            self.scraper.crawler.search_item('class', '_searchInput_search_text_3CUDs', self.search_key)
 
             # get source from web
             web_elements = self.scraper.crawler.find_elements('class', 'filter_finder_col__k6BKF ')

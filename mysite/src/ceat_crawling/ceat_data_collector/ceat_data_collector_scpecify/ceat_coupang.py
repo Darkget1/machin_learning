@@ -4,10 +4,12 @@ import re
 import datetime
 from dateutil.relativedelta import relativedelta
 
+
+
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
-from ceat_crawling.ceat_common.ceat_common import *
-from ceat_crawling.ceat_data_collector.ceat_scraper import *
+from src.ceat_crawling.ceat_common.ceat_common import *
+from src.ceat_crawling.ceat_data_collector.ceat_scraper import *
 
 class coupang_scenario:
     def __init__(self, collector_data_info, link_max_cnt, step_get_links = False, step_get_comments = False):
@@ -471,6 +473,7 @@ class coupang_scenario:
 
         # get comments
         self.coupang_get_comments(comparison_name_list)
+# working!!
 
     def coupang_get_link_to_DB(self, comparison_name_list):
         for comparison_name in comparison_name_list:
@@ -504,9 +507,11 @@ class coupang_scenario:
                         if self.coupang_get_link_filter(elements, comparison_name,self.search_key, link_comments_cnt_list):
                             # print(self.scraper.parser.find_element(elements, 'tag', 'a').get_attribute('href'))
                             # link_list.append(self.scraper.parser.find_element(elements, 'tag', 'a').get_attribute('href'))
-
+                            link_title = self.scraper.parser.findAttr(elements, 'div', {'class': 'name'}).text
                             # To Do (YANG): Send URL to DB!!!!!!!!!!!!!!!!
-                            print(self.scraper.parser.find_element(elements, 'tag', 'a').get_attribute('href'))
+                            print('수집 URL : ',self.scraper.parser.find_element(elements, 'tag', 'a').get_attribute('href'))
+                            print('수집 Title : ',link_title)
+
                             link_cnt += 1
 
                         if link_cnt >= self.link_max_cnt:

@@ -7,8 +7,8 @@ import time
 from dateutil.relativedelta import relativedelta
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
-from ceat_crawling.ceat_common.ceat_common import *
-from ceat_crawling.ceat_data_collector.ceat_scraper import *
+from src.ceat_crawling.ceat_common.ceat_common import *
+from src.ceat_crawling.ceat_data_collector.ceat_scraper import *
 
 class naver_scenario:
     def __init__(self, collector_data_info, link_max_cnt, step_get_links = False, step_get_comments = False):

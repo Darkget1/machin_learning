@@ -12,12 +12,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-
-#테스트
-from django.core.signals import request_finished
-
-
-
+#
+# #ceat_coupnag
+# from ..src.ceat_crawling.ceat_data_collector.ceat_data_collector_scpecify import ceat_coupang
+#
+# from ..src.ceat_crawling.ceat_data_collector.ceat_data_collector_scpecify.ceat_comparison_list import comparison_list
+#
+#
 
 
 @shared_task
@@ -66,6 +67,25 @@ def naver(room_name):
                 'message': content
             }
         )
-@shared_task
-def add(x,y):
-    return x+y
+# @shared_task
+# def coupang(room_name):
+#     brand_list = []
+#     #수집 데이터 리스트
+#     def ceat_collector_data_init():
+#         print("========================================")
+#         init_data = dict()
+#         print("Target Mall Name (Coupang or Naver) : ")
+#         init_data["target_mall"] = 'Naver'
+#         print("Search Key : ")
+#         init_data["search_key"] = '마스크'
+#         print('Start Date (YYYY.MM.DD) : ')
+#         init_data["start_t"] = '2023.07.01'
+#         print("End Date (YYYY.MM.DD) : ")
+#         init_data["end_t"] = '2023.07.31'
+#         print("========================================")
+#         return init_data
+#     collector_data_info = ceat_collector_data_init()
+#
+#     comparison_name_list = comparison_list(collector_data_info, comparison_list_cnt_max=10).scenario_run()
+#     ceat_coupang.coupang_scenario.coupang_get_link_to_DB(comparison_name_list)
+# coupang(1)

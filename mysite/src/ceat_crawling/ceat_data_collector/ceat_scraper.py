@@ -49,7 +49,7 @@ class ceat_crawler():
         #
         # # self.driver.options.add_argument(r'--profile.set_preference("dom.webdriver.enabled", False)')
 
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(time_to_wait=5)
 
     def open_crawler(self, url=None):

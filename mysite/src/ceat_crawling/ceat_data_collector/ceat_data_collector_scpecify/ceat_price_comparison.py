@@ -3,8 +3,8 @@ import os
 import sys
 import time
 
-from ceat_crawling.ceat_data_collector.ceat_scraper import *
-from ceat_crawling.ceat_common.ceat_common import *
+from src.ceat_crawling.ceat_data_collector.ceat_scraper import *
+from src.ceat_crawling.ceat_common.ceat_common import *
 from selenium.webdriver.common.by import By
 #정의매소드
 class price_scenario:
